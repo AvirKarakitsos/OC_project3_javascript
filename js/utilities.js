@@ -20,19 +20,19 @@ export function addElements(table){
 //Fonction pour ajouter addEventListener sur les filtres
 export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
-        element.addEventListener("click",()=>{
+        element.addEventListener("click",function(){
             document.querySelector(".gallery").innerHTML = ""
             addElements(data)
             document.querySelector(".selected").classList.remove("selected")
-            element.classList.add("selected")
+            this.classList.add("selected")
         })
     }else{
-        element.addEventListener("click",()=>{
+        element.addEventListener("click",function(){
             document.querySelector(".gallery").innerHTML = ""
-            const tableFilter = data.filter(res => res.categoryId === parseInt(element.dataset.id))
+            const tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
             addElements(tableFilter)
             document.querySelector(".selected").classList.remove("selected")
-            element.classList.add("selected")
+            this.classList.add("selected")
         })
     }
 }
