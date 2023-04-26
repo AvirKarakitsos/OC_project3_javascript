@@ -2,20 +2,16 @@ const form = document.querySelector(".form-connection")
 
 form.addEventListener("submit",function(event){
     event.preventDefault()
+    const emailResponse = event.target.email
+    const passwordResponse = event.target.password
     const user = {
-        email: event.target.email.value,
-        password: event.target.password.value
+        email: emailResponse.value,
+        password: passwordResponse.value
     }
-    console.log(user)
 
-    if (event.target.password.value === "") {
-        event.target.password.setCustomValidity("Erreur dans l'identifiant ou le mot de passe");
-    
+    if((emailResponse.value !== "sophie.bluel@test.tld") || (passwordResponse.value !== "S0phie")){
+        document.querySelector(".msg-error").innerHTML = "Erreur dans l'identifiant ou le mot de passe"
     }else{
-        event.target.password.setCustomValidity("");
-        
+        window.location.pathname = "/views/edit/edit.html"
     }
-    //.setCustomValidity("Erreur dans l'identifiant ou le mot de passe")
-    
-    
 })

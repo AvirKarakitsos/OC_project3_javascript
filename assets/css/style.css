@@ -228,7 +228,11 @@ input[type="submit"]{
 #contact.login .link{
 	color: black;
 }
-
+.msg-error{
+	text-align: left;
+	margin-top: 15px;
+	color: red;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
