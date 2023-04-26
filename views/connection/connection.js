@@ -8,6 +8,14 @@ form.addEventListener("submit",function(event){
     }
     console.log(user)
 
+    if (event.target.password.value === "") {
+        event.target.password.setCustomValidity("Erreur dans l'identifiant ou le mot de passe");
+    
+    }else{
+        event.target.password.setCustomValidity("");
+        
+    }
     //.setCustomValidity("Erreur dans l'identifiant ou le mot de passe")
+    
     
 })
