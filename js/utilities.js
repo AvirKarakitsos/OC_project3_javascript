@@ -1,7 +1,7 @@
 //Fonction pour ajouter des elements dans le DOM
-function addElements(table){
+export function addElements(table){
     const gallery = document.querySelector(".gallery")
-    for(element of table){
+    for(let element of table){
         const figure = document.createElement("figure")
         const image = document.createElement("img")
         const title = document.createElement("figcaption")
@@ -18,7 +18,7 @@ function addElements(table){
 }
 
 //Fonction pour ajouter addEventListener sur les filtres
-function addClickEvent(element,data){
+export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
         element.addEventListener("click",()=>{
             document.querySelector(".gallery").innerHTML = ""

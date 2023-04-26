@@ -1,8 +1,11 @@
+import {addElements, addClickEvent} from "../../js/utilities.js"
 
 async function executeCode(){
     try{
         //Recuperation des donnees
-        const data = await fetch("http://localhost:5678/api/works")
+        let load = await fetch("../../config.json")
+        load = await load.json()
+        const data = await fetch(`${load.host}api/works`)
         const result = await data.json()
 
         //Ajout des elements dans le DOM
@@ -10,10 +13,10 @@ async function executeCode(){
 
         //Ajout des categories dans le HTML
         const list = document.querySelector(".categories")
-        const dataCategories = await fetch("http://localhost:5678/api/categories")
+        const dataCategories = await fetch(`${load.host}api/categories`)
         const listCategories = await dataCategories.json()
 
-        for(category of listCategories){
+        for(let category of listCategories){
             const newElement = document.createElement("li")
             newElement.textContent = category.name
             newElement.dataset.id = category.id
