@@ -49,8 +49,69 @@
             <section id="portfolio">
                 <div class="title">
                     <h2>Mes Projets</h2>
-                    <div class="edit"><i class="fa-sharp fa-regular fa-pen-to-square"></i><p>modifier</p></div>
+                    <div class="edit"><a href="#modal"></a><i class="fa-sharp fa-regular fa-pen-to-square"></i><p>modifier</p></div>
                 </div>
+
+                <aside id="modal" class="modal">
+                    <div class="modal-contain">
+                        <p class="modal-close"><span>&times;</span></p>
+                        <h3 class="modal-title">Galerie photo</h3>
+                        <div class="modal-articles">
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                            <article>
+                                <div class="trash-icon">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <img src="../../assets/images/abajour-tahina.png" alt="">
+                                <p class="modal-edit">éditer</p>
+                            </article>
+                        </div>
+                        <button class="btn-submit modal-add">Ajouter une photo</button>
+                        <p class="modal-delete">supprimer la galerie</p>
+                    </div>
+                </aside>
+
                 <div class="gallery">
                 </div>
             </section>
@@ -64,7 +125,7 @@
                     <input type="email" name="email" id="email">
                     <label for="message">Message</label>
                     <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                    <input type="submit" value="Envoyer">
+                    <input type="submit" value="Envoyer" class="btn-submit">
                 </form>
             </section>
         </main>
