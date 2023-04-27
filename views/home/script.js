@@ -33,4 +33,8 @@ async function executeCode(){
 
 executeCode()
 
+document.getElementById("login").addEventListener("click",function(){
+    window.location.pathname = "/views/connection/connection.html"
+})
+
 
