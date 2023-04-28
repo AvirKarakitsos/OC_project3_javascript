@@ -4,11 +4,10 @@ import {addElements, modalHome} from "../../js/utilities.js"
 
 //Recuperation des donnees
 const result = await fetchRequest.connection("works")
+let modal = document.getElementById("modal")
 
 //Ajout des elements dans le DOM
 addElements(result)
-   
-let modal = document.getElementById("modal")
 
 //Ouverture du modal
 document.querySelector(".link-modal").addEventListener("click",function(){

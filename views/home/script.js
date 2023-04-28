@@ -2,15 +2,13 @@ import {addElements, addClickEvent} from "../../js/utilities.js"
 import {fetchRequest} from "../../js/fetchRequest.js"
 
 const result = await fetchRequest.connection("works")
+const list = document.querySelector(".categories")
+const listCategories = await fetchRequest.connection("categories")
 
 //Ajout des elements dans le DOM
 addElements(result)
 
 //Ajout des categories dans le HTML
-const list = document.querySelector(".categories")
-
-const listCategories = await fetchRequest.connection("categories")
-
 for(let category of listCategories){
     const newElement = document.createElement("li")
     newElement.textContent = category.name
