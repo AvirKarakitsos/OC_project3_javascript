@@ -53,62 +53,27 @@
                 </div>
 
                 <aside id="modal" class="modal">
-                    <div class="modal-contain">
-                        <p class="modal-close"><span>&times;</span></p>
-                        <h3 class="modal-title">Galerie photo</h3>
-                        <div class="modal-articles">
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
-                            <article>
-                                <div class="trash-icon">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </div>
-                                <img src="../../assets/images/abajour-tahina.png" alt="">
-                                <p class="modal-edit">éditer</p>
-                            </article>
+                    <div class="modal-container">
+                        <p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
+                        <h3 class="modal-title">Ajout photo</h3>
+                        <div class="modal-section modal-post">
+                            <div>
+                                <i class="fa-sharp fa-solid fa-image"></i>
+                                <button class="btn-submit modal-add bg-blue">+ Ajouter photo</button>
+                                <p>jpg, png:4mo max</p>
+                            </div>
+                            <form class="form-style">
+                                <label for="modal-form-title" class="label-style label-title">Titre</label>
+                                <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
+                                <label for="modal-form-categories" class="label-style">Catégorie</label>
+                                <select name="modal-form-categories" id="modal-form-categories" class="input-style">
+                                    <option value=""></option>
+                                    <option value="Hôtel">Hôtel</option>
+                                    <option value="Object">Object</option>
+                                </select>
+                            </form>
                         </div>
-                        <button class="btn-submit modal-add">Ajouter une photo</button>
-                        <p class="modal-delete">supprimer la galerie</p>
+                        <button class="btn-submit modal-add bg-grey">Valider</button>
                     </div>
                 </aside>
 
@@ -118,14 +83,14 @@
             <section id="contact">
                 <h2>Contact</h2>
                 <p>Vous avez un projet ? Discutons-en !</p>
-                <form action="#" method="post">
-                    <label for="name">Nom</label>
-                    <input type="text" name="name" id="name">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email">
-                    <label for="message">Message</label>
+                <form action="#" method="post" class="form-style">
+                    <label for="name" class="label-style">Nom</label>
+                    <input type="text" name="name" id="name" class="input-style">
+                    <label for="email" class="label-style">Email</label>
+                    <input type="email" name="email" id="email" class="input-style">
+                    <label for="message" class="label-style">Message</label>
                     <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                    <input type="submit" value="Envoyer" class="btn-submit">
+                    <input type="submit" value="Envoyer" class="btn-submit bg-green">
                 </form>
             </section>
         </main>

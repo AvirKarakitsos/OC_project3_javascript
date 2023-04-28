@@ -36,3 +36,43 @@ export function addClickEvent(element,data){
         })
     }
 }
+
+//Fonction pour ajouter des elements dans le Modal
+function addModalElements(table){
+    const modalArticles = document.querySelector(".modal-articles")
+    modalArticles.innerHTML = ""
+    for(let element of table){
+        modalArticles.innerHTML += `<article>
+                                        <div class="trash-icon">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </div>
+                                        <img src="${element.imageUrl}" alt="${element.title}">
+                                        <p class="modal-edit">éditer</p>
+                                    </article>`
+    }    
+}
+
+export function modalHome(){
+    document.querySelector(".modal-contain").innerHTML = `<p class="modal-close"><span>&times;</span></p>
+                                                        <h3 class="modal-title">Galerie photo</h3>
+                                                        <div class="modal-section modal-articles"></div>
+                                                        <button class="btn-submit modal-add">Ajouter une photo</button>
+                                                        <p class="modal-delete">supprimer la galerie</p>`
+    async function executeModal(){
+        try{
+            //Recuperation des donnees
+            let load = await fetch("../../config.json")
+            load = await load.json()
+            const data = await fetch(`${load.host}api/works`)
+            const result = await data.json()
+    
+            //Ajout des elements dans le Modal
+            addModalElements(result)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    
+    executeModal()
+
+}
