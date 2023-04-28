@@ -1,4 +1,4 @@
-//Fonction pour ajouter des elements dans le DOM
+//Fonction pour ajouter des elements dans le DOM pour la page Home
 export function addElements(table){
     const gallery = document.querySelector(".gallery")
     for(let element of table){
@@ -17,7 +17,7 @@ export function addElements(table){
     }    
 }
 
-//Fonction pour ajouter addEventListener sur les filtres
+//Fonction pour ajouter addEventListener sur les filtres sur la page Home
 export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
         element.addEventListener("click",function(){

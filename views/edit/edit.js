@@ -42,7 +42,15 @@ document.querySelector(".link-modal").addEventListener("click",function(){
     
     //Modal ajout d'un post
     document.getElementById("btn-home").addEventListener("click",function(){
+
+        //Ajout des elements
         modalPost()
+        
+        //Retour au Modal
+        document.querySelector(".fa-arrow-left").addEventListener("click",function(){
+            modalHome()
+        })
+
         //Fermeture du modal sur le conteneur uniquement
         modal.addEventListener("click",function(){
             this.style.display = "none"
@@ -50,6 +58,7 @@ document.querySelector(".link-modal").addEventListener("click",function(){
         modal.children[0].addEventListener("click",function(e){
             e.stopPropagation()
         })
+
         //Fermeture du modal sur la croix
         document.querySelector(".close-icon").addEventListener("click",function(){
             modal.style.display = "none"
