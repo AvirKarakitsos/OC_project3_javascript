@@ -43,43 +43,49 @@ export function addClickEvent(element,data){
     }
 }
 
-//Fonction pour ajouter des elements dans le Modal
-function addModalElements(table){
-    const modalArticles = document.querySelector(".modal-articles")
-    modalArticles.innerHTML = ""
-    for(let element of table){
-        modalArticles.innerHTML += `<article>
-                                        <div class="trash-icon">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </div>
-                                        <img src="${element.imageUrl}" alt="${element.title}">
-                                        <p class="modal-edit">éditer</p>
-                                    </article>`
-    }    
-}
-
-export function modalHome(){
+//Fonction Modal home
+export function modalHome(target){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Galerie photo</h3>
                                                         <div class="modal-section modal-articles"></div>
-                                                        <button id="btn-home" class="btn-submit modal-add">Ajouter une photo</button>
+                                                        <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
                                                         <p class="modal-delete">supprimer la galerie</p>`
  
-    //Ajout des elements dans le Modal
-    addModalElements(result)
+    //Ajout la galerie dans le Modal
+    document.querySelector(".modal-articles").innerHTML = ""
+    for(let element of result){
+        document.querySelector(".modal-articles").innerHTML += `<article>
+                                                                    <div class="trash-icon">
+                                                                        <i class="fa-solid fa-trash-can"></i>
+                                                                    </div>
+                                                                    <img src="${element.imageUrl}" alt="${element.title}">
+                                                                    <p class="modal-edit">éditer</p>
+                                                                </article>`
+    }    
 
+    //Ajout Modal post
+    document.getElementById("btn-home").addEventListener("click",function(){
+        //Ajout des elements
+        modalPost(target)
+    })
+
+    //Fermeture du Modal avec la croix
+    document.querySelector(".close-icon").addEventListener("click",function(){
+        target.style.display = "none"
+    })
 }
 
-export function modalPost(){
+//Fonction Modal ajout d'un post
+export function modalPost(target){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Ajout photo</h3>
                                                         <div class="modal-section modal-post">
                                                             <div>
                                                                 <i class="fa-sharp fa-solid fa-image"></i>
-                                                                <button class="btn-submit modal-add bg-blue">+ Ajouter photo</button>
-                                                                <p>jpg, png:4mo max</p>
+                                                                <button class="btn-submit modal-add-photo bg-blue">+ Ajouter photo</button>
+                                                                <p>jpg, png : 4mo max</p>
                                                             </div>
                                                             <form class="form-style">
                                                                 <label for="modal-form-title" class="label-style label-title">Titre</label>
@@ -90,9 +96,19 @@ export function modalPost(){
                                                                 </select>
                                                             </form>
                                                         </div>
-                                                        <button class="btn-submit modal-add bg-grey">Valider</button>`
+                                                        <button class="btn-submit modal-validate bg-grey">Valider</button>`
            
     for(let category of listCategories){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
+
+    //Retour au Modal home
+    document.querySelector(".fa-arrow-left").addEventListener("click",function(){
+        modalHome(target)
+    })
+
+    //Fermeture du Modal avec la croix
+    document.querySelector(".close-icon").addEventListener("click",function(){
+        target.style.display = "none"
+    })
 }

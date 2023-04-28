@@ -78,7 +78,9 @@ i{
 	color: #FFFFFF;
 	background-color: #A7A7A7;
 }
-
+button {
+	border: none;
+}
 /*************************/
 body{
 	font-family: 'Work Sans' ;
@@ -288,7 +290,6 @@ li:hover {
 }
 
 .modal-add {
-	border: none;
 	margin: 38px 0 23px 0;
 	padding: 9px 48px;
 }
@@ -310,7 +311,7 @@ li:hover {
 	align-items: center;
 	background-color: #E8F1F7;
 }
-.modal-post div .modal-add {
+.modal-add-photo{
 	margin: 21px 0 7px 0;
 	padding: 10px 33px;
 }
@@ -324,9 +325,10 @@ li:hover {
 	font-size: 45px;
 	color: #CBD6DC;
 }
-.modal-container > .modal-add {
+.modal-validate {
 	width: 237px;
 	margin: 32px 0 7px 0;
+	padding: 10px 49px;
 }
 
 .gallery {
