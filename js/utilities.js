@@ -1,3 +1,9 @@
+import { fetchRequest } from "./fetchRequest.js"
+
+//Recuperation des donnees
+const result = await fetchRequest.connection("works")
+const listCategories = await fetchRequest.connection("categories")
+
 //Fonction pour ajouter des elements dans le DOM pour la page Home
 export function addElements(table){
     const gallery = document.querySelector(".gallery")
@@ -59,22 +65,9 @@ export function modalHome(){
                                                         <div class="modal-section modal-articles"></div>
                                                         <button id="btn-home" class="btn-submit modal-add">Ajouter une photo</button>
                                                         <p class="modal-delete">supprimer la galerie</p>`
-    async function executeModal(){
-        try{
-            //Recuperation des donnees
-            let load = await fetch("../../config.json")
-            load = await load.json()
-            const data = await fetch(`${load.host}api/works`)
-            const result = await data.json()
-    
-            //Ajout des elements dans le Modal
-            addModalElements(result)
-        }catch(err){
-            console.log(err)
-        }
-    }
-    
-    executeModal()
+ 
+    //Ajout des elements dans le Modal
+    addModalElements(result)
 
 }
 
@@ -98,21 +91,8 @@ export function modalPost(){
                                                             </form>
                                                         </div>
                                                         <button class="btn-submit modal-add bg-grey">Valider</button>`
-    async function executeCategory(){
-        try{
-            //Ajout des categories dans le ModalPost
-            let load = await fetch("../../config.json")
-            load = await load.json()
-            const dataCategories = await fetch(`${load.host}api/categories`)
-            const listCategories = await dataCategories.json()
-
-            for(let category of listCategories){
-                document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
-            }
-        }catch(err){
-            console.log(err)
-        }
+           
+    for(let category of listCategories){
+        document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
-
-    executeCategory()
 }

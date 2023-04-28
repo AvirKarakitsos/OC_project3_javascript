@@ -1,37 +1,25 @@
 import {addElements, addClickEvent} from "../../js/utilities.js"
+import {fetchRequest} from "../../js/fetchRequest.js"
 
-async function executeCode(){
-    try{
-        //Recuperation des donnees
-        let load = await fetch("../../config.json")
-        load = await load.json()
-        const data = await fetch(`${load.host}api/works`)
-        const result = await data.json()
+const result = await fetchRequest.connection("works")
 
-        //Ajout des elements dans le DOM
-        addElements(result)
+//Ajout des elements dans le DOM
+addElements(result)
 
-        //Ajout des categories dans le HTML
-        const list = document.querySelector(".categories")
-        const dataCategories = await fetch(`${load.host}api/categories`)
-        const listCategories = await dataCategories.json()
+//Ajout des categories dans le HTML
+const list = document.querySelector(".categories")
 
-        for(let category of listCategories){
-            const newElement = document.createElement("li")
-            newElement.textContent = category.name
-            newElement.dataset.id = category.id
-            list.appendChild(newElement)
-        }
+const listCategories = await fetchRequest.connection("categories")
 
-        //Ajout d'un click event sur les filtres
-        document.querySelectorAll(".categories li").forEach((category) => addClickEvent(category,result))
-        
-    }catch(err){
-        console.log(err)
-    }
+for(let category of listCategories){
+    const newElement = document.createElement("li")
+    newElement.textContent = category.name
+    newElement.dataset.id = category.id
+    list.appendChild(newElement)
 }
 
-executeCode()
+//Ajout d'un click event sur les filtres
+document.querySelectorAll(".categories li").forEach((category) => addClickEvent(category,result))
 
 document.getElementById("login").addEventListener("click",function(){
     window.location.pathname = "/views/connection/connection.html"

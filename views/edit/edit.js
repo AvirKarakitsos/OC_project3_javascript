@@ -1,22 +1,13 @@
+import { fetchRequest } from "../../js/fetchRequest.js"
 import {addElements, modalHome, modalPost} from "../../js/utilities.js"
 
-async function executeCode(){
-    try{
-        //Recuperation des donnees
-        let load = await fetch("../../config.json")
-        load = await load.json()
-        const data = await fetch(`${load.host}api/works`)
-        const result = await data.json()
 
-        //Ajout des elements dans le DOM
-        addElements(result)
-    }catch(err){
-        console.log(err)
-    }
-}
+//Recuperation des donnees
+const result = await fetchRequest.connection("works")
 
-executeCode()
-
+//Ajout des elements dans le DOM
+addElements(result)
+   
 let modal = null
 
 //Ouverture du modal
