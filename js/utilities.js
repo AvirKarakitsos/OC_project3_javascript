@@ -53,10 +53,11 @@ function addModalElements(table){
 }
 
 export function modalHome(){
-    document.querySelector(".modal-contain").innerHTML = `<p class="modal-close"><span>&times;</span></p>
+    document.querySelector(".modal-container").innerHTML = ""
+    document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Galerie photo</h3>
                                                         <div class="modal-section modal-articles"></div>
-                                                        <button class="btn-submit modal-add">Ajouter une photo</button>
+                                                        <button id="btn-home" class="btn-submit modal-add">Ajouter une photo</button>
                                                         <p class="modal-delete">supprimer la galerie</p>`
     async function executeModal(){
         try{
@@ -75,4 +76,43 @@ export function modalHome(){
     
     executeModal()
 
+}
+
+export function modalPost(){
+    document.querySelector(".modal-container").innerHTML = ""
+    document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
+                                                        <h3 class="modal-title">Ajout photo</h3>
+                                                        <div class="modal-section modal-post">
+                                                            <div>
+                                                                <i class="fa-sharp fa-solid fa-image"></i>
+                                                                <button class="btn-submit modal-add bg-blue">+ Ajouter photo</button>
+                                                                <p>jpg, png:4mo max</p>
+                                                            </div>
+                                                            <form class="form-style">
+                                                                <label for="modal-form-title" class="label-style label-title">Titre</label>
+                                                                <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
+                                                                <label for="modal-form-categories" class="label-style">Catégorie</label>
+                                                                <select name="modal-form-categories" id="modal-form-categories" class="input-style">
+                                                                    <option value=""></option>
+                                                                </select>
+                                                            </form>
+                                                        </div>
+                                                        <button class="btn-submit modal-add bg-grey">Valider</button>`
+    async function executeCategory(){
+        try{
+            //Ajout des categories dans le ModalPost
+            let load = await fetch("../../config.json")
+            load = await load.json()
+            const dataCategories = await fetch(`${load.host}api/categories`)
+            const listCategories = await dataCategories.json()
+
+            for(let category of listCategories){
+                document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    executeCategory()
 }

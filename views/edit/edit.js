@@ -1,4 +1,4 @@
-import {addElements, modalHome} from "../../js/utilities.js"
+import {addElements, modalHome, modalPost} from "../../js/utilities.js"
 
 async function executeCode(){
     try{
@@ -20,25 +20,41 @@ executeCode()
 let modal = null
 
 //Ouverture du modal
-// document.querySelector(".link-modal").addEventListener("click",function(){
-//     const target = document.querySelector(this.getAttribute("href"))
-//     target.style.display = "flex"
-//     modalHome()
+document.querySelector(".link-modal").addEventListener("click",function(){
+    const target = document.querySelector(this.getAttribute("href"))
+    target.style.display = "flex"
+    modalHome()
 
-//     //Fermeture du modal sur le conteneur uniquement
-//     target.addEventListener("click",function(){
-//         this.style.display = "none"
-//     })
-//     target.children[0].addEventListener("click",function(e){
-//         e.stopPropagation()
-//     })
+    //Fermeture du modal sur le conteneur uniquement
+    target.addEventListener("click",function(){
+        this.style.display = "none"
+    })
+    target.children[0].addEventListener("click",function(e){
+        e.stopPropagation()
+    })
 
-//     modal = target
+    modal = target
 
-//     //Fermeture du modal sur la croix
-//     document.querySelector(".modal-close").addEventListener("click",function(){
-//         modal.style.display = "none"
-//     })
-// })
+    //Fermeture du modal sur la croix
+    document.querySelector(".close-icon").addEventListener("click",function(){
+        modal.style.display = "none"
+    })
+    
+    //Modal ajout d'un post
+    document.getElementById("btn-home").addEventListener("click",function(){
+        modalPost()
+        //Fermeture du modal sur le conteneur uniquement
+        modal.addEventListener("click",function(){
+            this.style.display = "none"
+        })
+        modal.children[0].addEventListener("click",function(e){
+            e.stopPropagation()
+        })
+        //Fermeture du modal sur la croix
+        document.querySelector(".close-icon").addEventListener("click",function(){
+            modal.style.display = "none"
+        })
+    })
+})
 
 
