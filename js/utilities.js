@@ -1,4 +1,6 @@
 import { fetchRequest } from "./fetchRequest.js"
+let load = await fetch("../../config.json")
+load = await load.json()
 
 //Recuperation des donnees
 const result = await fetchRequest.connection("works")
@@ -103,6 +105,15 @@ export function modalPost(target){
     for(let category of listCategories){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
+
+    //Afficher le choix de l'image
+    document.getElementById("modal-form-image").addEventListener("change",function(){
+        let image = this.files[0]
+        let imageAlt = image.name.split(".")[0]
+
+        document.querySelector(".modal-load").innerHTML = ""
+        document.querySelector(".modal-load").innerHTML = `<img src="${load.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+    })
 
     //Retour au Modal home
     document.querySelector(".fa-arrow-left").addEventListener("click",function(){
