@@ -56,7 +56,7 @@ export function modalHome(target){
     document.querySelector(".modal-articles").innerHTML = ""
     for(let element of result){
         document.querySelector(".modal-articles").innerHTML += `<article>
-                                                                    <div class="trash-icon">
+                                                                    <div class="trash-icon" data-id="${element.id}">
                                                                         <i class="fa-solid fa-trash-can"></i>
                                                                     </div>
                                                                     <img src="${element.imageUrl}" alt="${element.title}">

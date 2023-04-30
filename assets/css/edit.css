@@ -272,6 +272,18 @@ li:hover {
 	background-color: black;
 }
 
+.trash-icon:hover {
+	animation: trash-shaking .25s linear forwards infinite;
+}
+
+@keyframes trash-shaking {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(25deg); }
+	50% { transform: rotate(0deg); }
+	75% { transform: rotate(-25deg); }
+	100% { transform: rotate(0deg); }
+}
+
 .fa-trash-can{
 	font-size: 9px;
 	color: white;
