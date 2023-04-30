@@ -1,10 +1,11 @@
 import { fetchRequest } from "./fetchRequest.js"
-let load = await fetch("../../config.json")
-load = await load.json()
 
 //Recuperation des donnees
 const result = await fetchRequest.connection("works")
 const listCategories = await fetchRequest.connection("categories")
+
+let load = await fetch("../../config.json") //le script edit.js est dans views -> edit
+load = await load.json()
 
 //Fonction pour ajouter des elements dans le DOM pour la page Home
 export function addElements(table){
@@ -64,7 +65,27 @@ export function modalHome(target){
                                                                     <img src="${element.imageUrl}" alt="${element.title}">
                                                                     <p class="modal-edit">éditer</p>
                                                                 </article>`
-    }    
+    }
+
+    //Evenement pour supprimer un post de la galerie
+    document.querySelectorAll(".trash-icon").forEach((element)=>{
+        element.addEventListener("click",async function(){
+            const id = parseInt(this.dataset.id)
+            if(confirm("Voulez-vous supprimer ce post ?")){
+                const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,{method: "DELETE"})
+                console.log(deletePost.ok)
+            }
+            
+        })
+    })
+
+    //Evenement pour supprimer toute la galerie
+    document.querySelector(".modal-delete").addEventListener("click",async function() {
+        const lengthTable = result.length
+        for (let i=0; i<lengthTable; i++){
+            await fetch(`http://localhost:5678/api/works/${i}`,{method: "DELETE"})
+        }  
+    })
 
     //Ajout Modal post
     document.getElementById("btn-home").addEventListener("click",function(){

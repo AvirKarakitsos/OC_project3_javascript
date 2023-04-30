@@ -233,7 +233,7 @@ li:hover {
 	justify-content: end;
 }
 
-.close-icon{
+.close-icon {
 	font-size: 24px;
 	cursor: default;
 }
@@ -256,7 +256,7 @@ li:hover {
 	gap: 10px 6px;
 }
 
-.modal-articles article{
+.modal-articles article {
 	position: relative;
 }
 
@@ -284,7 +284,7 @@ li:hover {
 	100% { transform: rotate(0deg); }
 }
 
-.fa-trash-can{
+.fa-trash-can {
 	font-size: 9px;
 	color: white;
 }
@@ -330,7 +330,7 @@ li:hover {
 	align-items: center;
 	background-color: #E8F1F7;
 }
-.label-image{
+.label-image {
 	margin: 21px 0 7px 0;
 	padding: 10px 33px;
 }
@@ -342,6 +342,7 @@ li:hover {
 }
 .display-image {
 	height: 100%;
+	object-fit: cover;
 }
 
 .label-title {
@@ -377,17 +378,20 @@ li:hover {
 	text-align: center;
 
 }
+#contact form {
+	text-align: left;
+}
 #contact h2{
 	margin-bottom: 20px;
 }
 
-.input-style {
+#contact input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-.label-style {
+#contact label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
