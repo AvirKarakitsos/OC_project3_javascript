@@ -81,13 +81,15 @@ export function modalPost(target){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Ajout photo</h3>
-                                                        <div class="modal-section modal-post">
-                                                            <div>
-                                                                <i class="fa-sharp fa-solid fa-image"></i>
-                                                                <button class="btn-submit modal-add-photo bg-blue">+ Ajouter photo</button>
-                                                                <p>jpg, png : 4mo max</p>
-                                                            </div>
-                                                            <form class="form-style">
+                                                        <div class="modal-section">
+                                                            <form class="modal-form">
+                                                                <div class="modal-load">
+                                                                    <i class="fa-sharp fa-solid fa-image"></i>
+                                                                    <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
+                                                                    <input type="file" id="modal-form-image">
+                                                                    <p>jpg, png : 4mo max</p>
+                                                                </div>
+                                                            
                                                                 <label for="modal-form-title" class="label-style label-title">Titre</label>
                                                                 <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
                                                                 <label for="modal-form-categories" class="label-style">Catégorie</label>

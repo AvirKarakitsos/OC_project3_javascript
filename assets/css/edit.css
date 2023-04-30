@@ -310,12 +310,19 @@ li:hover {
 	color: red;
 	cursor: default;
 }
+
 /*Modal Post*/
 .modal-header {
 	display: flex;
 	justify-content: space-between;
 }
-.modal-post div {
+.modal-form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+.modal-load {
 	height: 169px;
 	display: flex;
 	flex-direction: column;
@@ -323,14 +330,17 @@ li:hover {
 	align-items: center;
 	background-color: #E8F1F7;
 }
-.modal-add-photo{
+.label-image{
 	margin: 21px 0 7px 0;
 	padding: 10px 33px;
 }
-.modal-post div p {
+#modal-form-image {
+	display: none;
+}
+.modal-load p {
 	font-size: 10px;
 }
-.modal-post .label-title {
+.label-title {
 	margin: 0 0 1em 0;
 }
 .fa-image {
@@ -366,12 +376,7 @@ li:hover {
 #contact h2{
 	margin-bottom: 20px;
 }
-.form-style {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
-}
+
 .input-style {
 	height: 50px;
 	font-size: 1.2em;

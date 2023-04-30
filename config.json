@@ -1,3 +1,4 @@
 {
-    "host": "http://localhost:5678/"
+    "host": "http://localhost:5678/",
+    "liveserver": "http://127.0.0.1:5500/"
 }
