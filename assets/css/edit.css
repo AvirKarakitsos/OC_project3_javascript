@@ -246,10 +246,10 @@ li:hover {
 .modal-section {
 	width: 65%;
 	margin: 0 auto;
-	padding: 46px 0;
 	border-bottom: 1px solid grey;
 }
 .modal-articles {
+	padding: 46px 0 47px 0;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-auto-rows: 1fr;
@@ -316,9 +316,11 @@ li:hover {
 	display: flex;
 	justify-content: space-between;
 }
+.modal-post {
+	padding: 36px 0 47px 0;
+}
 .modal-form {
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -347,6 +349,15 @@ li:hover {
 
 .label-title {
 	margin: 0 0 1em 0;
+}
+.label-style {
+	margin: 2em 0 1em 0;
+}
+.input-style{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 .fa-image {
 	font-size: 45px;

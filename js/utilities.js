@@ -35,7 +35,7 @@ export function addClickEvent(element,data){
             document.querySelector(".selected").classList.remove("selected")
             this.classList.add("selected")
         })
-    }else{
+    } else{
         element.addEventListener("click",function(){
             document.querySelector(".gallery").innerHTML = ""
             const tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
@@ -72,8 +72,9 @@ export function modalHome(target){
         element.addEventListener("click",async function(){
             const id = parseInt(this.dataset.id)
             if(confirm("Voulez-vous supprimer ce post ?")){
-                const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,{method: "DELETE"})
-                console.log(deletePost.ok)
+                // const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,{method: "DELETE"})
+                // console.log(deletePost.ok)
+                window.location.reload()
             }
             
         })
@@ -82,9 +83,12 @@ export function modalHome(target){
     //Evenement pour supprimer toute la galerie
     document.querySelector(".modal-delete").addEventListener("click",async function() {
         const lengthTable = result.length
-        for (let i=0; i<lengthTable; i++){
-            await fetch(`http://localhost:5678/api/works/${i}`,{method: "DELETE"})
-        }  
+        if(confirm("Voulez-vous supprimer toute la galerie ?")){
+            // for (let i=0; i<lengthTable; i++){
+            //     await fetch(`http://localhost:5678/api/works/${i}`,{method: "DELETE"})
+            // }
+            window.location.reload()
+        }
     })
 
     //Ajout Modal post
@@ -104,7 +108,7 @@ export function modalPost(target){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Ajout photo</h3>
-                                                        <div class="modal-section">
+                                                        <div class="modal-section modal-post">
                                                             <form class="modal-form">
                                                                 <div class="modal-load">
                                                                     <i class="fa-sharp fa-solid fa-image"></i>
