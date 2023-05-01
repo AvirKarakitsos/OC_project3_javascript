@@ -4,8 +4,8 @@ import { fetchRequest } from "./fetchRequest.js"
 const result = await fetchRequest.connection("works")
 const listCategories = await fetchRequest.connection("categories")
 
-let load = await fetch("../../config.json") //le script edit.js est dans views -> edit
-load = await load.json()
+let fetchConfig = await fetch("../../config.json") //le script edit.js est dans views -> edit
+fetchConfig = await fetchConfig.json()
 
 //Fonction pour ajouter des elements dans le DOM pour la page Home
 export function addElements(table){
@@ -72,9 +72,12 @@ export function modalHome(target){
         element.addEventListener("click",async function(){
             const id = parseInt(this.dataset.id)
             if(confirm("Voulez-vous supprimer ce post ?")){
-                // const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,{method: "DELETE"})
-                // console.log(deletePost.ok)
-                window.location.reload()
+                const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,
+                    {
+                        method: "DELETE",
+                        headers: {"Authorization": `Bearer ${fetchConfig.token}`}
+                    })
+                deletePost.ok ? window.location.reload() : console.log("Erreur lors de la requete")
             }
             
         })
@@ -85,7 +88,7 @@ export function modalHome(target){
         const lengthTable = result.length
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
             // for (let i=0; i<lengthTable; i++){
-            //     await fetch(`http://localhost:5678/api/works/${i}`,{method: "DELETE"})
+            //     await fetch(`http://localhost:5678/api/works/${i}`,{"method": "DELETE"})
             // }
             window.location.reload()
         }
@@ -158,7 +161,7 @@ export function modalPost(target){
         let imageAlt = image.name.split(".")[0]
 
         document.querySelector(".modal-form-1").innerHTML = ""
-        document.querySelector(".modal-form-1").innerHTML = `<img src="${load.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        document.querySelector(".modal-form-1").innerHTML = `<img src="${fetchConfig.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
         if(image !==null){
             fileFilled = true
