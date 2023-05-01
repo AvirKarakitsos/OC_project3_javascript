@@ -109,6 +109,7 @@ function changeButtonColor(input){
     if(input){
         changeColor.classList.remove("bg-grey")
         changeColor.classList.add("bg-green")
+        document.querySelector(".msg-error").innerHTML = ""
     } else {
         changeColor.classList.remove("bg-green")
         changeColor.classList.add("bg-grey")
@@ -121,20 +122,21 @@ export function modalPost(target){
                                                         <h3 class="modal-title">Ajout photo</h3>
                                                         <div class="modal-section modal-post">
                                                             <form class="modal-form">
-                                                                <div class="modal-load">
+                                                                <div class="modal-form-1">
                                                                     <i class="fa-sharp fa-solid fa-image"></i>
                                                                     <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
                                                                     <input type="file" id="modal-form-image">
                                                                     <p>jpg, png : 4mo max</p>
                                                                 </div>
-                                                            
-                                                                <label for="modal-form-title" class="label-style label-title">Titre</label>
-                                                                <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
-                                                                <label for="modal-form-categories" class="label-style">Catégorie</label>
-                                                                <select name="modal-form-categories" id="modal-form-categories" class="input-style border-grey">
-                                                                    <option value=""></option>
-                                                                </select>
-                                                                <p class="msg-error"></p>
+                                                                <div class="modal-form-2 border-grey">
+                                                                    <label for="modal-form-title" class="label-style label-title">Titre</label>
+                                                                    <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
+                                                                    <label for="modal-form-categories" class="label-style">Catégorie</label>
+                                                                    <select name="modal-form-categories" id="modal-form-categories" class="input-style">
+                                                                        <option value=""></option>
+                                                                    </select>
+                                                                    <p class="msg-error"></p>
+                                                                </div>
                                                                 <button class="btn-submit modal-validate bg-grey" id="btn-form">Valider</button>
                                                             </form>
                                                         </div>`
@@ -155,8 +157,8 @@ export function modalPost(target){
         let image = this.files[0]
         let imageAlt = image.name.split(".")[0]
 
-        document.querySelector(".modal-load").innerHTML = ""
-        document.querySelector(".modal-load").innerHTML = `<img src="${load.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        document.querySelector(".modal-form-1").innerHTML = ""
+        document.querySelector(".modal-form-1").innerHTML = `<img src="${load.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
         if(image !==null){
             fileFilled = true
