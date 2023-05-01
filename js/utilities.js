@@ -51,7 +51,7 @@ export function modalHome(target){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Galerie photo</h3>
-                                                        <div class="modal-section modal-articles"></div>
+                                                        <div class="modal-section modal-articles border-grey"></div>
                                                         <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
                                                         <p class="modal-delete">supprimer la galerie</p>`
  
@@ -103,6 +103,17 @@ export function modalHome(target){
     })
 }
 
+//Focntion qui change le bouton de validation
+function changeButtonColor(input){
+    const changeColor = document.getElementById("btn-form")
+    if(input){
+        changeColor.classList.remove("bg-grey")
+        changeColor.classList.add("bg-green")
+    } else {
+        changeColor.classList.remove("bg-green")
+        changeColor.classList.add("bg-grey")
+    }
+}
 //Fonction Modal ajout d'un post
 export function modalPost(target){
     document.querySelector(".modal-container").innerHTML = ""
@@ -120,17 +131,25 @@ export function modalPost(target){
                                                                 <label for="modal-form-title" class="label-style label-title">Titre</label>
                                                                 <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
                                                                 <label for="modal-form-categories" class="label-style">Catégorie</label>
-                                                                <select name="modal-form-categories" id="modal-form-categories" class="input-style">
+                                                                <select name="modal-form-categories" id="modal-form-categories" class="input-style border-grey">
                                                                     <option value=""></option>
                                                                 </select>
+                                                                <p class="msg-error"></p>
+                                                                <button class="btn-submit modal-validate bg-grey" id="btn-form">Valider</button>
                                                             </form>
-                                                        </div>
-                                                        <button class="btn-submit modal-validate bg-grey">Valider</button>`
-           
+                                                        </div>`
+    
+    //Ajout des differentes categories dans les options       
     for(let category of listCategories){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
 
+    //Logique du formulaire complete
+    let fileFilled = false
+    let titleFilled = false
+    let categoryFilled = false
+    let formFilled = false
+    
     //Afficher le choix de l'image
     document.getElementById("modal-form-image").addEventListener("change",function(){
         let image = this.files[0]
@@ -138,6 +157,46 @@ export function modalPost(target){
 
         document.querySelector(".modal-load").innerHTML = ""
         document.querySelector(".modal-load").innerHTML = `<img src="${load.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        
+        if(image !==null){
+            fileFilled = true
+            titleFilled && categoryFilled ? formFilled = true : formFilled = false
+            changeButtonColor(formFilled)
+        }
+    })
+    document.getElementById("modal-form-title").addEventListener("input",function(){
+        if(this.value.length > 2){
+            titleFilled = true
+            fileFilled && categoryFilled ? formFilled = true : formFilled = false
+            changeButtonColor(formFilled)
+          } else{
+            titleFilled = false
+            formFilled = false
+            changeButtonColor(formFilled)
+          }
+    })
+    document.getElementById("modal-form-categories").addEventListener("change",function(){
+        if(this.value !== ""){
+            categoryFilled = true
+            fileFilled && titleFilled ? formFilled = true : formFilled = false
+            changeButtonColor(formFilled)
+          } else{
+            categoryFilled = false
+            formFilled = false
+            changeButtonColor(formFilled)
+          }
+    })
+    //Validation du formulaire
+    document.querySelector(".modal-form").addEventListener("submit",function(event){
+        event.preventDefault()
+        if(formFilled){
+            //Requete
+            console.log("Envoi de la requête: "+event.target)
+            document.querySelector(".msg-error").innerHTML = ""
+            window.location.reload()
+        } else {
+            document.querySelector(".msg-error").innerHTML = "Veuillez completer le formulaire"
+        }
     })
 
     //Retour au Modal home
