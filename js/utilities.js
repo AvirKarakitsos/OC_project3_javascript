@@ -106,7 +106,7 @@ export function modalHome(target){
     })
 }
 
-//Focntion qui change le bouton de validation
+//Fonction qui change le bouton de validation
 function changeButtonColor(input){
     const changeColor = document.getElementById("btn-form")
     if(input){
@@ -128,14 +128,14 @@ export function modalPost(target){
                                                                 <div class="modal-form-1">
                                                                     <i class="fa-sharp fa-solid fa-image"></i>
                                                                     <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                                                    <input type="file" id="modal-form-image">
+                                                                    <input type="file" accept=".png" id="modal-form-image" name="image">
                                                                     <p>jpg, png : 4mo max</p>
                                                                 </div>
                                                                 <div class="modal-form-2 border-grey">
                                                                     <label for="modal-form-title" class="label-style label-title">Titre</label>
-                                                                    <input type="text" name="modal-form-title" id="modal-form-title" class="input-style">
+                                                                    <input type="text" name="title" id="modal-form-title" class="input-style">
                                                                     <label for="modal-form-categories" class="label-style">Catégorie</label>
-                                                                    <select name="modal-form-categories" id="modal-form-categories" class="input-style">
+                                                                    <select name="categories" id="modal-form-categories" class="input-style">
                                                                         <option value=""></option>
                                                                     </select>
                                                                     <p class="msg-error"></p>
@@ -154,10 +154,12 @@ export function modalPost(target){
     let titleFilled = false
     let categoryFilled = false
     let formFilled = false
+    let imageName = null
     
     //Afficher le choix de l'image
     document.getElementById("modal-form-image").addEventListener("change",function(){
         let image = this.files[0]
+        imageName = image
         let imageAlt = image.name.split(".")[0]
 
         document.querySelector(".modal-form-1").innerHTML = ""
@@ -192,13 +194,36 @@ export function modalPost(target){
           }
     })
     //Validation du formulaire
-    document.querySelector(".modal-form").addEventListener("submit",function(event){
+    document.querySelector(".modal-form").addEventListener("submit",async function(event){
         event.preventDefault()
         if(formFilled){
             //Requete
-            console.log("Envoi de la requête: "+event.target)
+            const formData = new FormData()
+            formData.append("image",imageName)
+            formData.append("title",event.target.title.value)
+            formData.append("category",parseInt(event.target.categories.value))
+            // const userCharge = {
+            //     image: imageName,
+            //     title: event.target.title.value,
+            //     category: parseInt(event.target.categories.value)
+            // }
+            // console.log(userCharge)
+            try{
+            const post = await fetch("http://localhost:5678/api/works",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${fetchConfig.token}`
+                        },
+                        body: formData //JSON.stringify(userCharge)
+                    })
+            console.log(post.ok)
             document.querySelector(".msg-error").innerHTML = ""
-            window.location.reload()
+            //window.location.reload()
+                } catch(e){
+                    console.log(e)
+                }
+               
         } else {
             document.querySelector(".msg-error").innerHTML = "Veuillez completer le formulaire"
         }
