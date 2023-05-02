@@ -1,11 +1,16 @@
+const load = await fetch("../../config.json")
+const loadJson = await load.json()
+
 export class fetchRequest {
+
+    static get param(){
+        return loadJson
+    }
 
     static async get(request) {
         try{
             //Recuperation des donnees
-            let load = await fetch("../../config.json")
-            load = await load.json()
-            const data = await fetch(`${load.host}api/${request}`)
+            const data = await fetch(`${this.param.host}api/${request}`)
             const result = await data.json()
             return result
         }catch(err){
@@ -15,12 +20,10 @@ export class fetchRequest {
 
     static async post(formData) {
         try{
-            const load = await fetch("../../config.json")
-            const loadJson = await load.json()
-            const data = await fetch(`${loadJson.host}api/works`,
+            const data = await fetch(`${this.param.host}api/works`,
                 {
                     method: "POST",
-                    headers: {"Authorization": `Bearer ${loadJson.token}`},
+                    headers: {"Authorization": `Bearer ${this.param.token}`},
                     body: formData
                 })
             return data
@@ -31,12 +34,10 @@ export class fetchRequest {
 
     static async delete(id) {
         try{
-            const load = await fetch("../../config.json")
-            const loadJson = await load.json()
-            const data = await fetch(`${loadJson.host}api/works/${id}`,
+            const data = await fetch(`${this.param.host}api/works/${id}`,
                 {
                     method: "DELETE",
-                    headers: {"Authorization": `Bearer ${loadJson.token}`}
+                    headers: {"Authorization": `Bearer ${this.param.token}`}
                 })
             return data
         }catch(err){
