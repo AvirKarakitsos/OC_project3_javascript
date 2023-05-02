@@ -1,7 +1,6 @@
 import { fetchRequest } from "./fetchRequest.js"
 
 //Recuperation des donnees
-const result = await fetchRequest.connection("works")
 const listCategories = await fetchRequest.connection("categories")
 
 let fetchConfig = await fetch("../../config.json") //le script edit.js est dans views -> edit
@@ -46,18 +45,10 @@ export function addClickEvent(element,data){
     }
 }
 
-//Fonction Modal home
-export function modalHome(target){
-    document.querySelector(".modal-container").innerHTML = ""
-    document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
-                                                        <h3 class="modal-title">Galerie photo</h3>
-                                                        <div class="modal-section modal-articles border-grey"></div>
-                                                        <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
-                                                        <p class="modal-delete">supprimer la galerie</p>`
- 
-    //Ajout la galerie dans le Modal
+//Fonction qui ajoute la galerie dans le Modal
+function addElementsModal(table){
     document.querySelector(".modal-articles").innerHTML = ""
-    for(let element of result){
+    for(let element of table){
         document.querySelector(".modal-articles").innerHTML += `<article>
                                                                     <div class="trash-icon" data-id="${element.id}">
                                                                         <i class="fa-solid fa-trash-can"></i>
@@ -66,18 +57,30 @@ export function modalHome(target){
                                                                     <p class="modal-edit">éditer</p>
                                                                 </article>`
     }
+}
+//Fonction Modal home
+export function modalHome(target,data){
+    document.querySelector(".modal-container").innerHTML = ""
+    document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
+                                                        <h3 class="modal-title">Galerie photo</h3>
+                                                        <div class="modal-section modal-articles border-grey"></div>
+                                                        <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
+                                                        <p class="modal-delete">supprimer la galerie</p>`
 
-    //Evenement pour supprimer un post de la galerie
+    //Ajout des projets dans le modal
+    addElementsModal(data)
+
+    //Evenement pour supprimer un projet de la galerie
     document.querySelectorAll(".trash-icon").forEach((element)=>{
         element.addEventListener("click",async function(){
             const id = parseInt(this.dataset.id)
-            if(confirm("Voulez-vous supprimer ce post ?")){
-                const deletePost = await fetch(`http://localhost:5678/api/works/${id}`,
+            if(confirm("Voulez-vous supprimer ce projet ?")){
+                const deleteproject = await fetch(`http://localhost:5678/api/works/${id}`,
                     {
                         method: "DELETE",
                         headers: {"Authorization": `Bearer ${fetchConfig.token}`}
                     })
-                deletePost.ok ? window.location.reload() : console.log("Erreur lors de la requete")
+                deleteproject.ok ? window.location.reload() : console.log("Erreur lors de la requete")
             }
             
         })
@@ -85,7 +88,7 @@ export function modalHome(target){
 
     //Evenement pour supprimer toute la galerie
     document.querySelector(".modal-delete").addEventListener("click",async function() {
-        const lengthTable = result.length
+        const lengthTable = data.length
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
             // for (let i=0; i<lengthTable; i++){
             //     await fetch(`http://localhost:5678/api/works/${i}`,{"method": "DELETE"})
@@ -94,10 +97,10 @@ export function modalHome(target){
         }
     })
 
-    //Ajout Modal post
+    //Ajout Modal projet
     document.getElementById("btn-home").addEventListener("click",function(){
         //Ajout des elements
-        modalPost(target)
+        modalproject(target,data)
     })
 
     //Fermeture du Modal avec la croix
@@ -118,12 +121,14 @@ function changeButtonColor(input){
         changeColor.classList.add("bg-grey")
     }
 }
-//Fonction Modal ajout d'un post
-export function modalPost(target){
+//Fonction Modal ajout d'un projet
+export function modalproject(target,data){
+    let newData = null
+
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Ajout photo</h3>
-                                                        <div class="modal-section modal-post">
+                                                        <div class="modal-section modal-project">
                                                             <form class="modal-form">
                                                                 <div class="modal-form-1">
                                                                     <i class="fa-sharp fa-solid fa-image"></i>
@@ -154,12 +159,12 @@ export function modalPost(target){
     let titleFilled = false
     let categoryFilled = false
     let formFilled = false
-    let imageName = null
+
+    let image = null //stocke le fichier File
     
     //Afficher le choix de l'image
     document.getElementById("modal-form-image").addEventListener("change",function(){
-        let image = this.files[0]
-        imageName = image
+        image = this.files[0]
         let imageAlt = image.name.split(".")[0]
 
         document.querySelector(".modal-form-1").innerHTML = ""
@@ -197,29 +202,30 @@ export function modalPost(target){
     document.querySelector(".modal-form").addEventListener("submit",async function(event){
         event.preventDefault()
         if(formFilled){
+            
             //Requete
             const formData = new FormData()
-            formData.append("image",imageName)
+            formData.append("image",image)
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
-            // const userCharge = {
-            //     image: imageName,
-            //     title: event.target.title.value,
-            //     category: parseInt(event.target.categories.value)
-            // }
-            // console.log(userCharge)
+            
             try{
-            const post = await fetch("http://localhost:5678/api/works",
+            const project = await fetch("http://localhost:5678/api/works",
                     {
                         method: "POST",
                         headers: {
                             "Authorization": `Bearer ${fetchConfig.token}`
                         },
-                        body: formData //JSON.stringify(userCharge)
+                        body: formData
                     })
-            console.log(post.ok)
-            document.querySelector(".msg-error").innerHTML = ""
-            //window.location.reload()
+            if(project.ok){
+                async function updateGallery(){
+                    newData = await fetchRequest.connection("works")
+                    addElements(newData)
+                }
+                updateGallery()
+                document.querySelector(".msg-error").innerHTML = ""
+            }
                 } catch(e){
                     console.log(e)
                 }
@@ -231,7 +237,7 @@ export function modalPost(target){
 
     //Retour au Modal home
     document.querySelector(".fa-arrow-left").addEventListener("click",function(){
-        modalHome(target)
+        newData === null ? modalHome(target,data) : modalHome(target,newData)
     })
 
     //Fermeture du Modal avec la croix

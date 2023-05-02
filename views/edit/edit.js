@@ -13,7 +13,7 @@ addElements(result)
 document.querySelector(".link-modal").addEventListener("click",function(){
     modal.style.display = "flex"
     
-    modalHome(modal)
+    modalHome(modal,result)
 
     //Fermeture du modal sur le conteneur uniquement
     modal.addEventListener("click",function(){

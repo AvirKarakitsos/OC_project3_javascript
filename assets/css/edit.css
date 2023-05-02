@@ -313,12 +313,12 @@ li:hover {
 	cursor: default;
 }
 
-/*Modal Post*/
+/*Modal Project*/
 .modal-header {
 	display: flex;
 	justify-content: space-between;
 }
-.modal-post {
+.modal-project {
 	padding-top: 36px;
 }
 
