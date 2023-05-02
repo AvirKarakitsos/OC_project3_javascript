@@ -1,7 +1,7 @@
 import { fetchRequest } from "./fetchRequest.js"
 
 //Recuperation des donnees
-const listCategories = await fetchRequest.connection("categories")
+const listCategories = await fetchRequest.get("categories")
 
 let fetchConfig = await fetch("../../config.json") //le script edit.js est dans views -> edit
 fetchConfig = await fetchConfig.json()
@@ -58,6 +58,7 @@ function addElementsModal(table){
                                                                 </article>`
     }
 }
+
 //Fonction Modal home
 export function modalHome(target,data){
     document.querySelector(".modal-container").innerHTML = ""
@@ -75,12 +76,12 @@ export function modalHome(target,data){
         element.addEventListener("click",async function(){
             const id = parseInt(this.dataset.id)
             if(confirm("Voulez-vous supprimer ce projet ?")){
-                const deleteproject = await fetch(`http://localhost:5678/api/works/${id}`,
-                    {
-                        method: "DELETE",
-                        headers: {"Authorization": `Bearer ${fetchConfig.token}`}
-                    })
-                deleteproject.ok ? window.location.reload() : console.log("Erreur lors de la requete")
+                const deleteproject = await fetchRequest.delete(id)
+                if(deleteproject.ok){
+                    let newData = await fetchRequest.get("works")
+                    addElements(newData)
+                    addElementsModal(newData)
+                }
             }
             
         })
@@ -93,7 +94,6 @@ export function modalHome(target,data){
             // for (let i=0; i<lengthTable; i++){
             //     await fetch(`http://localhost:5678/api/works/${i}`,{"method": "DELETE"})
             // }
-            window.location.reload()
         }
     })
 
@@ -240,11 +240,8 @@ export function modalproject(target,data){
                     })
             if(project.ok){
                 msgColor("green")
-                async function updateGallery(){
-                    newData = await fetchRequest.connection("works")
-                    addElements(newData)
-                }
-                updateGallery()
+                newData = await fetchRequest.get("works")
+                addElements(newData)
             }
                 } catch(e){
                     console.log(e)
