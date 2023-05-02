@@ -1,43 +1,32 @@
 import { fetchRequest } from "./fetchRequest.js"
 
-//Recuperation des donnees
-const listCategories = await fetchRequest.get("categories")
+const listCategories = await fetchRequest.get("categories") //Recuperation des donnees
 
-let fetchConfig = await fetch("../../config.json") //le script edit.js est dans views -> edit
-fetchConfig = await fetchConfig.json()
-
-//Fonction pour ajouter des elements dans le DOM pour la page Home
+//Fonction pour ajouter des elements dans le DOM
 export function addElements(table){
     const gallery = document.querySelector(".gallery")
+
+    gallery.innerHTML = ""
     for(let element of table){
-        const figure = document.createElement("figure")
-        const image = document.createElement("img")
-        const title = document.createElement("figcaption")
-
-        image.src = element.imageUrl
-        image.alt = element.title
-        title.textContent = element.title
-
-        figure.appendChild(image)
-        figure.appendChild(title)
-        
-        gallery.appendChild(figure)
+        gallery.innerHTML += `<figure>
+                                <img src="${element.imageUrl}" alt="${element.title}">
+                                <figcaption>${element.title}</figcaption>
+                            </figure>`
     }    
 }
 
-//Fonction pour ajouter addEventListener sur les filtres sur la page Home
+//Fonction pour ajouter addEventListener sur les filtres categories
 export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
         element.addEventListener("click",function(){
-            document.querySelector(".gallery").innerHTML = ""
             addElements(data)
             document.querySelector(".selected").classList.remove("selected")
             this.classList.add("selected")
         })
     } else{
         element.addEventListener("click",function(){
-            document.querySelector(".gallery").innerHTML = ""
             const tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
+
             addElements(tableFilter)
             document.querySelector(".selected").classList.remove("selected")
             this.classList.add("selected")
@@ -68,22 +57,22 @@ export function modalHome(target,data){
                                                         <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
                                                         <p class="modal-delete">supprimer la galerie</p>`
 
-    //Ajout des projets dans le modal
-    addElementsModal(data)
+    addElementsModal(data) //Ajout des projets dans le modal
 
     //Evenement pour supprimer un projet de la galerie
     document.querySelectorAll(".trash-icon").forEach((element)=>{
         element.addEventListener("click",async function(){
             const id = parseInt(this.dataset.id)
+
             if(confirm("Voulez-vous supprimer ce projet ?")){
                 const deleteproject = await fetchRequest.delete(id)
+
                 if(deleteproject.ok){
                     let newData = await fetchRequest.get("works")
                     addElements(newData)
                     addElementsModal(newData)
                 }
             }
-            
         })
     })
 
@@ -97,10 +86,9 @@ export function modalHome(target,data){
         }
     })
 
-    //Ajout Modal projet
+    //Ajout Modal formulaire
     document.getElementById("btn-home").addEventListener("click",function(){
-        //Ajout des elements
-        modalproject(target,data)
+        modalForm(target,data) //Ajout des elements
     })
 
     //Fermeture du Modal avec la croix
@@ -109,8 +97,10 @@ export function modalHome(target,data){
     })
 }
 
+//Fonction pour le message d'erreur ou de validation
 function msgColor(value){
     const msg = document.querySelector(".msg")
+
     switch(value){
         case "empty": 
             msg.innerHTML = ""
@@ -128,9 +118,10 @@ function msgColor(value){
     }
 }
 
-//Fonction qui change le bouton de validation
+//Fonction qui change la couleur du bouton de validation
 function changeButtonColor(input){
     const changeColor = document.getElementById("btn-form")
+
     if(input){
         changeColor.classList.remove("bg-grey")
         changeColor.classList.add("bg-green")
@@ -142,8 +133,16 @@ function changeButtonColor(input){
 }
 
 //Fonction modal projet
-export function modalproject(target,data){
-    let newData = null
+export function modalForm(target,data){
+    let newData = null //stocke la bdd
+
+    //Logique du formulaire complete
+    let fileFilled = false
+    let titleFilled = false
+    let categoryFilled = false
+    let formFilled = false
+
+    let image = null //stocke le fichier File
 
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
@@ -174,21 +173,15 @@ export function modalproject(target,data){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
 
-    //Logique du formulaire complete
-    let fileFilled = false
-    let titleFilled = false
-    let categoryFilled = false
-    let formFilled = false
-
-    let image = null //stocke le fichier File
-    
-    //Afficher le choix de l'image
-    document.getElementById("modal-form-image").addEventListener("change",function(){
+    //Event Listener sur les input des formulaires
+    //Input File
+    document.getElementById("modal-form-image").addEventListener("change", function(){
         image = this.files[0]
         let imageAlt = image.name.split(".")[0]
 
+        //Afficher l'image choisie dans le formulaire
         document.querySelector(".modal-form-1").innerHTML = ""
-        document.querySelector(".modal-form-1").innerHTML = `<img src="${fetchConfig.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        document.querySelector(".modal-form-1").innerHTML = `<img src="${fetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
         if(image !==null){
             fileFilled = true
@@ -196,6 +189,7 @@ export function modalproject(target,data){
             changeButtonColor(formFilled)
         }
     })
+    //Input Titre
     document.getElementById("modal-form-title").addEventListener("input",function(){
         if(this.value.length > 2){
             titleFilled = true
@@ -207,6 +201,7 @@ export function modalproject(target,data){
             changeButtonColor(formFilled)
           }
     })
+    //Input Categorie
     document.getElementById("modal-form-categories").addEventListener("change",function(){
         if(this.value !== ""){
             categoryFilled = true
@@ -218,18 +213,21 @@ export function modalproject(target,data){
             changeButtonColor(formFilled)
           }
     })
+
     //Validation du formulaire
     document.querySelector(".modal-form").addEventListener("submit",async function(event){
         event.preventDefault()
+
         if(formFilled){
-            
             //Recuperation des donnees du formulaire
             const formData = new FormData()
+
             formData.append("image",image)
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
             
             const project = await fetchRequest.post(formData)
+            
             if(project.ok){
                 msgColor("green")
                 newData = await fetchRequest.get("works")

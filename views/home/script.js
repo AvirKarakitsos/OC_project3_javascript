@@ -1,9 +1,9 @@
 import {addElements, addClickEvent} from "../../js/utilities.js"
 import {fetchRequest} from "../../js/fetchRequest.js"
 
-const result = await fetchRequest.connection("works")
+const result = await fetchRequest.get("works")
 const list = document.querySelector(".categories")
-const listCategories = await fetchRequest.connection("categories")
+const listCategories = await fetchRequest.get("categories")
 
 //Ajout des elements dans le DOM
 addElements(result)
