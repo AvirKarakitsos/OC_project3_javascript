@@ -109,19 +109,39 @@ export function modalHome(target,data){
     })
 }
 
+function msgColor(value){
+    const msg = document.querySelector(".msg")
+    switch(value){
+        case "empty": 
+            msg.innerHTML = ""
+            break
+        case "green":
+            msg.classList.add("color-green")
+            msg.classList.remove("color-red")
+            msg.innerHTML = "Projet ajouté avec succès"
+            break
+        case "red":
+            msg.classList.add("color-red")
+            msg.classList.remove("color-green")
+            msg.innerHTML = "Veuillez completer le formulaire"
+            break
+    }
+}
+
 //Fonction qui change le bouton de validation
 function changeButtonColor(input){
     const changeColor = document.getElementById("btn-form")
     if(input){
         changeColor.classList.remove("bg-grey")
         changeColor.classList.add("bg-green")
-        document.querySelector(".msg-error").innerHTML = ""
+        msgColor("empty")
     } else {
         changeColor.classList.remove("bg-green")
         changeColor.classList.add("bg-grey")
     }
 }
-//Fonction Modal ajout d'un projet
+
+//Fonction modal projet
 export function modalproject(target,data){
     let newData = null
 
@@ -143,7 +163,7 @@ export function modalproject(target,data){
                                                                     <select name="categories" id="modal-form-categories" class="input-style">
                                                                         <option value=""></option>
                                                                     </select>
-                                                                    <p class="msg-error"></p>
+                                                                    <p class="msg"></p>
                                                                 </div>
                                                                 <button class="btn-submit modal-validate bg-grey" id="btn-form">Valider</button>
                                                             </form>
@@ -219,19 +239,19 @@ export function modalproject(target,data){
                         body: formData
                     })
             if(project.ok){
+                msgColor("green")
                 async function updateGallery(){
                     newData = await fetchRequest.connection("works")
                     addElements(newData)
                 }
                 updateGallery()
-                document.querySelector(".msg-error").innerHTML = ""
             }
                 } catch(e){
                     console.log(e)
                 }
                
         } else {
-            document.querySelector(".msg-error").innerHTML = "Veuillez completer le formulaire"
+            msgColor("red")
         }
     })
 

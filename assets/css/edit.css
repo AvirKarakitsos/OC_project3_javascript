@@ -372,10 +372,15 @@ li:hover {
 	margin: 32px 0 7px 0;
 	padding: 10px 49px;
 }
-.msg-error {
+.msg {
 	margin-top: 15px;
 	text-align: center;
+}
+.color-red {
 	color: red;
+}
+.color-green {
+	color: green
 }
 .gallery {
 	width: 100%;
