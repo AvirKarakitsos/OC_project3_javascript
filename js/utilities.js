@@ -223,30 +223,18 @@ export function modalproject(target,data){
         event.preventDefault()
         if(formFilled){
             
-            //Requete
+            //Recuperation des donnees du formulaire
             const formData = new FormData()
             formData.append("image",image)
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
             
-            try{
-            const project = await fetch("http://localhost:5678/api/works",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Authorization": `Bearer ${fetchConfig.token}`
-                        },
-                        body: formData
-                    })
+            const project = await fetchRequest.post(formData)
             if(project.ok){
                 msgColor("green")
                 newData = await fetchRequest.get("works")
                 addElements(newData)
             }
-                } catch(e){
-                    console.log(e)
-                }
-               
         } else {
             msgColor("red")
         }
