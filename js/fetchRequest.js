@@ -1,6 +1,8 @@
 const load = await fetch("../../config.json")
 const loadJson = await load.json()
 
+let token = window.localStorage.getItem("token")
+
 export class fetchRequest {
 
     static get param(){
@@ -23,7 +25,7 @@ export class fetchRequest {
             const data = await fetch(`${this.param.host}api/works`,
                 {
                     method: "POST",
-                    headers: {"Authorization": `Bearer ${this.param.token}`},
+                    headers: {"Authorization": `Bearer ${token}`},
                     body: formData
                 })
             return data
@@ -37,7 +39,7 @@ export class fetchRequest {
             const data = await fetch(`${this.param.host}api/works/${id}`,
                 {
                     method: "DELETE",
-                    headers: {"Authorization": `Bearer ${this.param.token}`}
+                    headers: {"Authorization": `Bearer ${token}`}
                 })
             return data
         }catch(err){
