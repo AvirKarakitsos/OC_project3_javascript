@@ -13,12 +13,7 @@ form.addEventListener("submit",async function(event){
         document.querySelector(".msg-error").innerHTML = "Erreur dans l'identifiant ou le mot de passe"
     }else{
         document.querySelector(".msg-error").innerHTML = ""
-        const response = await fetch(`${fetchRequest.param.host}api/users/login`,
-            {
-                method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body: JSON.stringify(resForm)
-            })
+        const response = await fetchRequest.login(resForm)
         
             if(response.ok){
                 const result = await response.json()

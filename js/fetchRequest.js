@@ -9,13 +9,26 @@ export class fetchRequest {
         return loadJson
     }
 
+    static async login(user) {
+        try {
+            const data = await fetch(`${this.param.host}api/users/login`,
+                {
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body: JSON.stringify(user)
+                })
+            return data
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     static async get(request) {
         try{
-            //Recuperation des donnees
             const data = await fetch(`${this.param.host}api/${request}`)
             const result = await data.json()
             return result
-        }catch(err){
+        } catch(err){
             console.log(err)
         }
     }
@@ -29,7 +42,7 @@ export class fetchRequest {
                     body: formData
                 })
             return data
-        }catch(err){
+        } catch(err){
             console.log(err)
         }
     }
@@ -42,7 +55,7 @@ export class fetchRequest {
                     headers: {"Authorization": `Bearer ${token}`}
                 })
             return data
-        }catch(err){
+        } catch(err){
             console.log(err)
         }
     }
