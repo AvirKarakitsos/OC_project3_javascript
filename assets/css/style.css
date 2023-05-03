@@ -73,6 +73,7 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
+	cursor: default;
 	color: #B1663C;
 }
 
@@ -146,16 +147,16 @@ nav li {
 	font-weight: 700;
 	font-size: 16px;
 	color: #1D6154;
-	/* border: 1px solid black; */
 }
 .categories li{
 	padding : 9px 15px;
 	border: 1px solid #1D6154;
 	border-radius: 30px;
+	cursor: default;
 }
-/* .categories li:hover{
-	background-color: #1D61541A;
-} */
+.categories li:hover:not(.selected){
+	background-color: #1D615440;
+} 
 .selected {
 	color: white;
 	background-color: #1D6154;
