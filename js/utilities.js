@@ -4,7 +4,7 @@ const listCategories = await fetchRequest.get("categories") //Recuperation des d
 
 //Fonction pour ajouter des elements dans le DOM
 export function addElements(table){
-    const gallery = document.querySelector(".gallery")
+    const gallery = document.getElementById("gallery")
 
     gallery.innerHTML = ""
     for(let element of table){

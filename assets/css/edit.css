@@ -47,7 +47,9 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-
+html{
+	scroll-behavior: smooth;
+}
 /** common classes **/
 .edit {
 	height: 18px;
@@ -80,6 +82,11 @@ i{
 }
 button {
 	border: none;
+}
+.no-decoration {
+	text-decoration: none;
+	color: black;
+	cursor: default;
 }
 /*************************/
 body{
@@ -151,10 +158,11 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
-li:hover {
+.nav-link:hover {
 	color: #B1663C;
+	cursor: default;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -382,7 +390,7 @@ li:hover {
 .color-green {
 	color: green
 }
-.gallery {
+#gallery {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -390,7 +398,7 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.gallery img {
+#gallery img {
 	width: 100%;
 }
 
