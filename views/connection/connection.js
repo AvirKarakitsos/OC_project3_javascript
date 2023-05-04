@@ -11,7 +11,7 @@ form.addEventListener("submit",async function(event){
 
     if((resForm.email !== fetchRequest.param.user.email) || (resForm.password !== fetchRequest.param.user.password)){
         document.querySelector(".msg-error").innerHTML = "Erreur dans l'identifiant ou le mot de passe"
-    }else{
+    } else{
         document.querySelector(".msg-error").innerHTML = ""
         const response = await fetchRequest.login(resForm)
         

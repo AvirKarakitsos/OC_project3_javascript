@@ -34,6 +34,11 @@ export function addClickEvent(element,data){
     }
 }
 
+//Fermeture du Modal
+export function close(){
+    document.getElementById("modal").style.display = "none"
+}
+
 //Fonction qui ajoute la galerie dans le Modal
 function addElementsModal(table){
     document.querySelector(".modal-articles").innerHTML = ""
@@ -49,7 +54,7 @@ function addElementsModal(table){
 }
 
 //Fonction Modal home
-export function modalHome(target,data){
+export function modalHome(data){
     document.querySelector(".modal-container").innerHTML = ""
     document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
                                                         <h3 class="modal-title">Galerie photo</h3>
@@ -88,13 +93,11 @@ export function modalHome(target,data){
 
     //Ajout Modal formulaire
     document.getElementById("btn-home").addEventListener("click",function(){
-        modalForm(target,data) //Ajout des elements
+        modalForm(data)
     })
 
     //Fermeture du Modal avec la croix
-    document.querySelector(".close-icon").addEventListener("click",function(){
-        target.style.display = "none"
-    })
+    document.querySelector(".close-icon").addEventListener("click",close)
 }
 
 //Fonction pour le message d'erreur ou de validation
@@ -132,9 +135,9 @@ function changeButtonColor(input){
     }
 }
 
-//Fonction modal projet
-export function modalForm(target,data){
-    let newData = null //stocke la bdd
+//Fonction Modal formulaire
+export function modalForm(data){
+    let newData = null //pour stocker la nouvelle bdd
 
     //Logique du formulaire complete
     let fileFilled = false
@@ -183,7 +186,7 @@ export function modalForm(target,data){
         document.querySelector(".modal-form-1").innerHTML = ""
         document.querySelector(".modal-form-1").innerHTML = `<img src="${fetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
-        if(image !==null){
+        if(image !== null){
             fileFilled = true
             titleFilled && categoryFilled ? formFilled = true : formFilled = false
             changeButtonColor(formFilled)
@@ -221,7 +224,7 @@ export function modalForm(target,data){
         if(formFilled){
             //Recuperation des donnees du formulaire
             const formData = new FormData()
-
+            
             formData.append("image",image)
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
@@ -233,18 +236,16 @@ export function modalForm(target,data){
                 newData = await fetchRequest.get("works")
                 addElements(newData)
             }
-        } else {
+        } else{
             msgColor("red")
         }
     })
 
     //Retour au Modal home
     document.querySelector(".fa-arrow-left").addEventListener("click",function(){
-        newData === null ? modalHome(target,data) : modalHome(target,newData)
+        newData === null ? modalHome(data) : modalHome(newData)
     })
 
     //Fermeture du Modal avec la croix
-    document.querySelector(".close-icon").addEventListener("click",function(){
-        target.style.display = "none"
-    })
+    document.querySelector(".close-icon").addEventListener("click",close)
 }

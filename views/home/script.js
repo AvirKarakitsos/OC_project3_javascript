@@ -3,8 +3,8 @@ import {fetchRequest} from "../../js/fetchRequest.js"
 import { login } from "../../js/connectionTools.js"
 
 const result = await fetchRequest.get("works")
-const list = document.querySelector(".categories")
 const listCategories = await fetchRequest.get("categories")
+const list = document.querySelector(".categories")
 
 //Lien vers la page connection
 document.getElementById("login").addEventListener("click",login)

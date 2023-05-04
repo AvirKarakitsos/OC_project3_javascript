@@ -1,6 +1,6 @@
 import { isActive, login, logout } from "../../js/connectionTools.js"
 import { fetchRequest } from "../../js/fetchRequest.js"
-import {addElements, modalHome} from "../../js/utilities.js"
+import {addElements, modalHome, close} from "../../js/utilities.js"
 
 //Recuperation des donnees
 const result = await fetchRequest.get("works")
@@ -17,12 +17,10 @@ if(isActive()){
     document.querySelector(".link-modal").addEventListener("click",function(){
         modal.style.display = "flex"
         
-        modalHome(modal,result)
+        modalHome(result)
 
         //Fermeture du modal sur le conteneur uniquement
-        modal.addEventListener("click",function(){
-            this.style.display = "none"
-        })
+        modal.addEventListener("click",close)
         modal.children[0].addEventListener("click",function(e){
             e.stopPropagation()
         })
