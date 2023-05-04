@@ -15,10 +15,10 @@ if(isActive()){
     addElements(result)
 
     //Ouverture du modal
-    document.querySelector(".link-modal").addEventListener("click",function(){
+    document.querySelector(".link-modal").addEventListener("click",async function(){
+        let newData = await fetchRequest.get("works")
         modal.style.display = "flex"
-        
-        modalHome(result)
+        modalHome(newData)
 
         //Fermeture du modal sur le conteneur uniquement
         modal.addEventListener("click",close)
