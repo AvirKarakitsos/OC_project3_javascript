@@ -1,10 +1,10 @@
 import { isActive, login, logout } from "../../js/connectionTools.js"
-import { fetchRequest } from "../../js/fetchRequest.js"
+import { FetchRequest } from "../../js/FetchRequest.js"
 import { modalHome } from "../../js/modal.js"
 import {addElements, close} from "../../js/utilities.js"
 
 //Recuperation des donnees
-const result = await fetchRequest.get("works")
+const result = await FetchRequest.get("works")
 let modal = document.getElementById("modal")
 
 if(isActive()){
@@ -16,7 +16,7 @@ if(isActive()){
 
     //Ouverture du modal
     document.querySelector(".link-modal").addEventListener("click",async function(){
-        let newData = await fetchRequest.get("works")
+        let newData = await FetchRequest.get("works")
         modal.style.display = "flex"
         modalHome(newData)
 

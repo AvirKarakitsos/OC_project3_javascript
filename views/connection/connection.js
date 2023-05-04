@@ -1,4 +1,4 @@
-import { fetchRequest } from "../../js/fetchRequest.js"
+import { FetchRequest } from "../../js/FetchRequest.js"
 
 const form = document.querySelector(".form-connection")
 
@@ -9,11 +9,11 @@ form.addEventListener("submit",async function(event){
         "password": event.target.password.value
     }
 
-    if((resForm.email !== fetchRequest.param.user.email) || (resForm.password !== fetchRequest.param.user.password)){
+    if((resForm.email !== FetchRequest.param.user.email) || (resForm.password !== FetchRequest.param.user.password)){
         document.querySelector(".msg-error").innerHTML = "Erreur dans l'identifiant ou le mot de passe"
     } else{
         document.querySelector(".msg-error").innerHTML = ""
-        const response = await fetchRequest.login(resForm)
+        const response = await FetchRequest.login(resForm)
         
             if(response.ok){
                 const result = await response.json()

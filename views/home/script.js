@@ -1,9 +1,9 @@
 import {addElements, addClickEvent} from "../../js/utilities.js"
-import {fetchRequest} from "../../js/fetchRequest.js"
+import {FetchRequest} from "../../js/FetchRequest.js"
 import { login } from "../../js/connectionTools.js"
 
-const result = await fetchRequest.get("works")
-const listCategories = await fetchRequest.get("categories")
+const result = await FetchRequest.get("works")
+const listCategories = await FetchRequest.get("categories")
 const list = document.querySelector(".categories")
 
 //Lien vers la page connection
