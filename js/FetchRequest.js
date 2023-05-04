@@ -3,7 +3,7 @@ const loadJson = await load.json()
 
 let token = window.localStorage.getItem("token")
 
-export class fetchRequest {
+export class FetchRequest {
 
     static get param(){
         return loadJson

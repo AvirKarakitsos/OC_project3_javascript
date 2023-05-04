@@ -1,7 +1,7 @@
-import { fetchRequest } from "./fetchRequest.js"
+import { FetchRequest } from "./FetchRequest.js"
 import { addElements, addElementsModal, close, msgColor, changeButtonColor } from "./utilities.js"
 
-const listCategories = await fetchRequest.get("categories") //Recuperation des donnees
+const listCategories = await FetchRequest.get("categories") //Recuperation des donnees
 const modalContainer = document.querySelector(".modal-container")
 
 //Fonction Modal home
@@ -21,10 +21,10 @@ export function modalHome(data){
             const id = parseInt(this.dataset.id)
 
             if(confirm("Voulez-vous supprimer ce projet ?")){
-                const deleteproject = await fetchRequest.delete(id)
+                const deleteproject = await FetchRequest.delete(id)
 
                 if(deleteproject.ok){
-                    let newData = await fetchRequest.get("works")
+                    let newData = await FetchRequest.get("works")
                     addElements(newData)
                     addElementsModal(newData)
                 }
@@ -35,8 +35,8 @@ export function modalHome(data){
     //Evenement pour supprimer toute la galerie
     document.querySelector(".modal-delete").addEventListener("click",async function() {
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
-            await fetchRequest.deleteAll()
-            let newData = await fetchRequest.get("works")
+            await FetchRequest.deleteAll()
+            let newData = await FetchRequest.get("works")
             addElements(newData)
             addElementsModal(newData)
         }
@@ -103,7 +103,7 @@ function modalForm(data){
 
         //Afficher l'image choisie dans le formulaire
         document.querySelector(".modal-form-1").innerHTML = ""
-        document.querySelector(".modal-form-1").innerHTML = `<img src="${fetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        document.querySelector(".modal-form-1").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
         if(image !== null){
             fileFilled = true
@@ -148,11 +148,11 @@ function modalForm(data){
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
             
-            const project = await fetchRequest.post(formData)
+            const project = await FetchRequest.post(formData)
             
             if(project.ok){
                 msgColor("green")
-                newData = await fetchRequest.get("works")
+                newData = await FetchRequest.get("works")
                 addElements(newData)
             }
         } else{
