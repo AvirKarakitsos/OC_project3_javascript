@@ -1,6 +1,7 @@
 import { isActive, login, logout } from "../../js/connectionTools.js"
 import { fetchRequest } from "../../js/fetchRequest.js"
-import {addElements, modalHome, close} from "../../js/utilities.js"
+import { modalHome } from "../../js/modal.js"
+import {addElements, close} from "../../js/utilities.js"
 
 //Recuperation des donnees
 const result = await fetchRequest.get("works")

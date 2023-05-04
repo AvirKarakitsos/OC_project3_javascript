@@ -1,5 +1,3 @@
-
-
 export function login(){
     window.location.pathname = "/views/connection/connection.html"
 }
