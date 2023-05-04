@@ -2,15 +2,16 @@ import { fetchRequest } from "./fetchRequest.js"
 import { addElements, addElementsModal, close, msgColor, changeButtonColor } from "./utilities.js"
 
 const listCategories = await fetchRequest.get("categories") //Recuperation des donnees
+const modalContainer = document.querySelector(".modal-container")
 
 //Fonction Modal home
 export function modalHome(data){
-    document.querySelector(".modal-container").innerHTML = ""
-    document.querySelector(".modal-container").innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
-                                                        <h3 class="modal-title">Galerie photo</h3>
-                                                        <div class="modal-section modal-articles border-grey"></div>
-                                                        <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
-                                                        <p class="modal-delete">supprimer la galerie</p>`
+    modalContainer.innerHTML = ""
+    modalContainer.innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
+                                <h3 class="modal-title">Galerie photo</h3>
+                                <div class="modal-section modal-articles border-grey"></div>
+                                <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
+                                <p class="modal-delete">supprimer la galerie</p>`
 
     addElementsModal(data) //Ajout des projets dans le modal
 
@@ -33,11 +34,11 @@ export function modalHome(data){
 
     //Evenement pour supprimer toute la galerie
     document.querySelector(".modal-delete").addEventListener("click",async function() {
-        const lengthTable = data.length
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
-            // for (let i=0; i<lengthTable; i++){
-            //     await fetch(`http://localhost:5678/api/works/${i}`,{"method": "DELETE"})
-            // }
+            await fetchRequest.deleteAll()
+            let newData = await fetchRequest.get("works")
+            addElements(newData)
+            addElementsModal(newData)
         }
     })
 
@@ -62,30 +63,33 @@ function modalForm(data){
 
     let image = null //stocke le fichier File
 
-    document.querySelector(".modal-container").innerHTML = ""
-    document.querySelector(".modal-container").innerHTML = `<p class="modal-header"><i class="fa-solid fa-arrow-left"></i><span class="close-icon">&times;</span></p>
-                                                        <h3 class="modal-title">Ajout photo</h3>
-                                                        <div class="modal-section modal-project">
-                                                            <form class="modal-form">
-                                                                <div class="modal-form-1">
-                                                                    <i class="fa-sharp fa-solid fa-image"></i>
-                                                                    <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                                                    <input type="file" accept=".png" id="modal-form-image" name="image">
-                                                                    <p>jpg, png : 4mo max</p>
-                                                                </div>
-                                                                <div class="modal-form-2 border-grey">
-                                                                    <label for="modal-form-title" class="label-style label-title">Titre</label>
-                                                                    <input type="text" name="title" id="modal-form-title" class="input-style">
-                                                                    <label for="modal-form-categories" class="label-style">Catégorie</label>
-                                                                    <select name="categories" id="modal-form-categories" class="input-style">
-                                                                        <option value=""></option>
-                                                                    </select>
-                                                                    <p class="msg"></p>
-                                                                </div>
-                                                                <button class="btn-submit modal-validate bg-grey" id="btn-form">Valider</button>
-                                                            </form>
-                                                        </div>`
-    
+    modalContainer.innerHTML = ""
+    modalContainer.innerHTML = `<p class="modal-header">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    <span class="close-icon">&times;</span>
+                                </p>
+                                <h3 class="modal-title">Ajout photo</h3>
+                                <div class="modal-section modal-project">
+                                    <form class="modal-form">
+                                        <div class="modal-form-1">
+                                            <i class="fa-sharp fa-solid fa-image"></i>
+                                            <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
+                                            <input type="file" accept=".png" id="modal-form-image" name="image">
+                                            <p>jpg, png : 4mo max</p>
+                                        </div>
+                                        <div class="modal-form-2 border-grey">
+                                            <label for="modal-form-title" class="label-style label-title">Titre</label>
+                                            <input type="text" name="title" id="modal-form-title" class="input-style">
+                                            <label for="modal-form-categories" class="label-style">Catégorie</label>
+                                            <select name="categories" id="modal-form-categories" class="input-style">
+                                                <option value=""></option>
+                                            </select>
+                                            <p class="msg"></p>
+                                        </div>
+                                        <button class="btn-submit modal-validate bg-grey" id="btn-form">Valider</button>
+                                    </form>
+                                </div>`
+
     //Ajout des differentes categories dans les options       
     for(let category of listCategories){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`

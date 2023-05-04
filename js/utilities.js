@@ -1,17 +1,24 @@
-//Fonction pour ajouter des elements dans le DOM
+//Ajoute des elements dans le DOM
 export function addElements(table){
     const gallery = document.getElementById("gallery")
 
     gallery.innerHTML = ""
-    for(let element of table){
-        gallery.innerHTML += `<figure>
-                                <img src="${element.imageUrl}" alt="${element.title}">
-                                <figcaption>${element.title}</figcaption>
-                            </figure>`
-    }    
+
+    if(table.length === 0){
+        gallery.style.display = "block"
+        gallery.innerHTML = `<p class="empty-gallery font-20-text-center">La galerie est vide</p>`
+    } else{
+        for(let element of table){
+            gallery.style.display = "grid"
+            gallery.innerHTML += `<figure>
+                                    <img src="${element.imageUrl}" alt="${element.title}">
+                                    <figcaption>${element.title}</figcaption>
+                                </figure>`
+        }
+    }
 }
 
-//Fonction pour ajouter addEventListener sur les filtres categories
+//Ajoute addEventListener sur les filtres categories
 export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
         element.addEventListener("click",function(){
@@ -35,21 +42,29 @@ export function close(){
     document.getElementById("modal").style.display = "none"
 }
 
-//Fonction qui ajoute la galerie dans le Modal
+//Ajoute la galerie dans le Modal
 export function addElementsModal(table){
-    document.querySelector(".modal-articles").innerHTML = ""
-    for(let element of table){
-        document.querySelector(".modal-articles").innerHTML += `<article>
-                                                                    <div class="trash-icon" data-id="${element.id}">
-                                                                        <i class="fa-solid fa-trash-can"></i>
-                                                                    </div>
-                                                                    <img src="${element.imageUrl}" alt="${element.title}">
-                                                                    <p class="modal-edit">éditer</p>
-                                                                </article>`
+    const galleryModal = document.querySelector(".modal-articles")
+    
+    galleryModal.innerHTML = ""
+
+    if (table.length === 0) {
+        galleryModal.style.display = "block"
+        galleryModal.innerHTML = `<p class="empty-gallery">La galerie est vide</p>`
+    } else {
+        for(let element of table){
+            galleryModal.innerHTML += `<article>
+                                        <div class="trash-icon" data-id="${element.id}">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </div>
+                                        <img src="${element.imageUrl}" alt="${element.title}">
+                                        <p class="modal-edit">éditer</p>
+                                    </article>`
+        }
     }
 }
 
-//Fonction pour le message d'erreur ou de validation
+//Message d'erreur ou de validation
 export function msgColor(value){
     const msg = document.querySelector(".msg")
 
@@ -70,7 +85,7 @@ export function msgColor(value){
     }
 }
 
-//Fonction qui change la couleur du bouton de validation
+//Change la couleur du bouton de validation
 export function changeButtonColor(input){
     const changeColor = document.getElementById("btn-form")
 

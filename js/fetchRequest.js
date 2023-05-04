@@ -59,4 +59,19 @@ export class fetchRequest {
             console.log(err)
         }
     }
+
+    static async deleteAll() {
+        try{
+            const request = await this.get("works")
+            for (let i=0; i<request.length; i++){
+                 await fetch(`http://localhost:5678/api/works/${request[i].id}`,
+                    {
+                        method : "DELETE",
+                        headers: {"Authorization": `Bearer ${token}`}
+                    })
+            }
+        } catch(err){
+            console.log(err)
+        }
+    }
 }
