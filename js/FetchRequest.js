@@ -20,8 +20,9 @@ export class FetchRequest {
 
             if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
             
-            return data.json()
+            const result = await data.json()
 
+            return result
         } catch (err) {
             console.log(err.message)
         }
@@ -33,8 +34,9 @@ export class FetchRequest {
 
             if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
             
-            return data.json()
-
+            const result = await data.json()
+            
+            return result
         } catch(err){
             console.log(err.message)
         }
