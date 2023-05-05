@@ -21,13 +21,10 @@ export function modalHome(data){
             const id = parseInt(this.dataset.id)
 
             if(confirm("Voulez-vous supprimer ce projet ?")){
-                const deleteproject = await FetchRequest.delete(id)
-
-                if(deleteproject.ok){
-                    let newData = await FetchRequest.get("works")
-                    addElements(newData)
-                    addElementsModal(newData)
-                }
+                await FetchRequest.delete(id)
+                let newData = await FetchRequest.get("works")
+                addElements(newData)
+                addElementsModal(newData)
             }
         })
     })
@@ -74,7 +71,7 @@ function modalForm(data){
                                         <div class="modal-form-1">
                                             <i class="fa-sharp fa-solid fa-image"></i>
                                             <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                            <input type="file" accept=".png" id="modal-form-image" name="image">
+                                            <input type="file" id="modal-form-image" name="image">
                                             <p>jpg, png : 4mo max</p>
                                         </div>
                                         <div class="modal-form-2 border-grey">
@@ -148,13 +145,10 @@ function modalForm(data){
             formData.append("title",event.target.title.value)
             formData.append("category",parseInt(event.target.categories.value))
             
-            const project = await FetchRequest.post(formData)
-            
-            if(project.ok){
-                msgColor("green")
-                newData = await FetchRequest.get("works")
-                addElements(newData)
-            }
+            await FetchRequest.post(formData)
+            msgColor("green")
+            newData = await FetchRequest.get("works")
+            addElements(newData)
         } else{
             msgColor("red")
         }

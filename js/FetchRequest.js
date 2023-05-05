@@ -17,19 +17,26 @@ export class FetchRequest {
                     headers:{"Content-Type":"application/json"},
                     body: JSON.stringify(user)
                 })
-            return data
+
+            if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
+            
+            return data.json()
+
         } catch (err) {
-            console.log(err)
+            console.log(err.message)
         }
     }
 
     static async get(request) {
         try{
             const data = await fetch(`${this.param.host}api/${request}`)
-            const result = await data.json()
-            return result
+
+            if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
+            
+            return data.json()
+
         } catch(err){
-            console.log(err)
+            console.log(err.message)
         }
     }
 
@@ -41,9 +48,13 @@ export class FetchRequest {
                     headers: {"Authorization": `Bearer ${token}`},
                     body: formData
                 })
-            return data
+            
+            if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
+
+            console.log(`Success ${data.status} : ${data.statusText}`)
+        
         } catch(err){
-            console.log(err)
+            console.log(err.message)
         }
     }
 
@@ -54,9 +65,13 @@ export class FetchRequest {
                     method: "DELETE",
                     headers: {"Authorization": `Bearer ${token}`}
                 })
-            return data
+            
+            if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
+
+            console.log(`Success ${data.status} : ${data.statusText}`)
+
         } catch(err){
-            console.log(err)
+            console.log(err.message)
         }
     }
 

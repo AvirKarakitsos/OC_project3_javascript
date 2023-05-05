@@ -13,12 +13,11 @@ form.addEventListener("submit",async function(event){
         document.querySelector(".msg-error").innerHTML = "Erreur dans l'identifiant ou le mot de passe"
     } else{
         document.querySelector(".msg-error").innerHTML = ""
-        const response = await FetchRequest.login(resForm)
+
+        const result = await FetchRequest.login(resForm)
         
-            if(response.ok){
-                const result = await response.json()
-                window.localStorage.setItem("token",result.token)
-                window.location.pathname = "/views/edit/edit.html"
-            }
+        window.localStorage.setItem("token",result.token)
+        window.location.pathname = "/views/edit/edit.html"
+            
     }
 })
