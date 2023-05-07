@@ -65,21 +65,14 @@ export function addElementsModal(table){
 }
 
 //Message d'erreur ou de validation
-export function msgColor(value){
+export function formCompleted(value){
     const msg = document.querySelector(".msg")
 
     switch(value){
         case "empty": 
             msg.innerHTML = ""
             break
-        case "green":
-            msg.classList.add("color-green")
-            msg.classList.remove("color-red")
-            msg.innerHTML = "Projet ajouté avec succès"
-            break
         case "red":
-            msg.classList.add("color-red")
-            msg.classList.remove("color-green")
             msg.innerHTML = "Veuillez completer le formulaire"
             break
     }
@@ -116,7 +109,7 @@ export function changeButtonColor(input){
     if(input){
         changeColor.classList.remove("bg-grey")
         changeColor.classList.add("bg-green")
-        msgColor("empty")
+        formCompleted("empty")
     } else {
         changeColor.classList.remove("bg-green")
         changeColor.classList.add("bg-grey")

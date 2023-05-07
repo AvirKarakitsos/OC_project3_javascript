@@ -1,5 +1,5 @@
 import { FetchRequest } from "./FetchRequest.js"
-import { addElements, addElementsModal, close, msgColor, changeButtonColor, msgValidation } from "./utilities.js"
+import { addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation } from "./utilities.js"
 
 const listCategories = await FetchRequest.get("categories") //Recuperation des donnees
 const modalContainer = document.querySelector(".modal-container")
@@ -153,7 +153,7 @@ function modalForm(data){
             newData = await FetchRequest.get("works")
             addElements(newData)
         } else{
-            msgColor("red")
+            formCompleted("red")
         }
     })
 

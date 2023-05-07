@@ -410,13 +410,9 @@ nav li {
 .msg {
 	margin-top: 15px;
 	text-align: center;
-}
-.color-red {
 	color: red;
 }
-.color-green {
-	color: green
-}
+
 #gallery {
 	width: 100%;
 	display: grid;
