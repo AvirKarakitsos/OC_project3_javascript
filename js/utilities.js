@@ -1,3 +1,5 @@
+import { FetchRequest } from "./FetchRequest.js"
+
 //Add elementsto the DOM
 export function addElements(table){
     let gallery = document.getElementById("gallery")
@@ -61,6 +63,21 @@ export function addElementsModal(table){
                                         <p class="modal-edit">éditer</p>
                                     </article>`
         }
+
+        //Event deleting one project
+        document.querySelectorAll(".trash-icon").forEach((element)=>{
+            element.addEventListener("click",async function(){
+                let id = parseInt(this.dataset.id)
+
+                if(confirm("Voulez-vous supprimer ce projet ?")){
+                    await FetchRequest.delete(id)
+                    let newData = await FetchRequest.get("works")
+                    addElements(newData)
+                    addElementsModal(newData)
+                    msgValidation("remove")
+                }
+            })
+        })
     }
 }
 

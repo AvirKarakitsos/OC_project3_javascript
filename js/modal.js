@@ -15,21 +15,6 @@ export function modalHome(data){
 
     addElementsModal(data) //Add projects to the modal
 
-    //Event deleting one project
-    document.querySelectorAll(".trash-icon").forEach((element)=>{
-        element.addEventListener("click",async function(){
-            let id = parseInt(this.dataset.id)
-
-            if(confirm("Voulez-vous supprimer ce projet ?")){
-                await FetchRequest.delete(id)
-                let newData = await FetchRequest.get("works")
-                addElements(newData)
-                addElementsModal(newData)
-                msgValidation("remove")
-            }
-        })
-    })
-
     //Event deleting all projects
     document.querySelector(".modal-delete").addEventListener("click",async function() {
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
@@ -60,6 +45,7 @@ function modalForm(data){
     let formFilled = false
 
     let image = null //To stock file image
+    let arrImages = []
 
     modalContainer.innerHTML = ""
     modalContainer.innerHTML = `<p class="modal-header">
@@ -72,7 +58,7 @@ function modalForm(data){
                                         <div class="modal-form-1">
                                             <i class="fa-sharp fa-solid fa-image"></i>
                                             <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                            <input type="file" id="modal-form-image" name="image">
+                                            <input type="file" accept="image/png, image/jpeg" id="modal-form-image" name="image">
                                             <p>jpg, png : 4mo max</p>
                                         </div>
                                         <div class="modal-form-2 border-grey">
@@ -96,12 +82,26 @@ function modalForm(data){
     //Event Listener for inputs
     //Input File
     document.getElementById("modal-form-image").addEventListener("change", function(){
+        let imageAlt
+
         image = this.files[0]
-        let imageAlt = image.name.split(".")[0]
+        if(image === undefined){ //case when you click cancel button
+            image = arrImages[0]
+        } else{
+            image = this.files[0]
+            arrImages[0] = this.files[0]
+        }
+
+        imageAlt = image.name.split(".")[0]
 
         //Display the image
-        document.querySelector(".modal-form-1").innerHTML = ""
-        document.querySelector(".modal-form-1").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+        document.querySelector(".modal-form-1 .fa-image").style.display = "none"
+        document.querySelector(".modal-form-1 p").innerHTML = ""
+
+        document.querySelector(".modal-form-1 label").classList.remove("btn-submit", "label-image", "bg-blue")
+        //document.querySelector(".modal-form-1 label").style.display = "block"
+        document.querySelector(".modal-form-1 label").innerHTML = ""
+        document.querySelector(".modal-form-1 label").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
         if(image !== null){
             fileFilled = true
