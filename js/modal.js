@@ -1,10 +1,10 @@
 import { FetchRequest } from "./FetchRequest.js"
 import { addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation } from "./utilities.js"
 
-const listCategories = await FetchRequest.get("categories") //Recuperation des donnees
+const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
 
-//Fonction Modal home
+//Fonction modal
 export function modalHome(data){
     modalContainer.innerHTML = ""
     modalContainer.innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
@@ -13,12 +13,12 @@ export function modalHome(data){
                                 <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
                                 <p class="modal-delete">supprimer la galerie</p>`
 
-    addElementsModal(data) //Ajout des projets dans le modal
+    addElementsModal(data) //Add projects to the modal
 
-    //Evenement pour supprimer un projet de la galerie
+    //Event deleting one project
     document.querySelectorAll(".trash-icon").forEach((element)=>{
         element.addEventListener("click",async function(){
-            const id = parseInt(this.dataset.id)
+            let id = parseInt(this.dataset.id)
 
             if(confirm("Voulez-vous supprimer ce projet ?")){
                 await FetchRequest.delete(id)
@@ -30,7 +30,7 @@ export function modalHome(data){
         })
     })
 
-    //Evenement pour supprimer toute la galerie
+    //Event deleting all projects
     document.querySelector(".modal-delete").addEventListener("click",async function() {
         if(confirm("Voulez-vous supprimer toute la galerie ?")){
             await FetchRequest.deleteAll()
@@ -40,26 +40,26 @@ export function modalHome(data){
         }
     })
 
-    //Ajout Modal formulaire
+    //Add modal form
     document.getElementById("btn-home").addEventListener("click",function(){
         modalForm(data)
     })
 
-    //Fermeture du Modal avec la croix
+    //Close the modal with the cross
     document.querySelector(".close-icon").addEventListener("click",close)
 }
 
-//Fonction Modal formulaire
+//Fonction modal form
 function modalForm(data){
-    let newData = null //pour stocker la nouvelle bdd
+    let newData = null //To stock the new database
 
-    //Logique du formulaire complete
+    //Logic for completed form
     let fileFilled = false
     let titleFilled = false
     let categoryFilled = false
     let formFilled = false
 
-    let image = null //stocke le fichier File
+    let image = null //To stock file image
 
     modalContainer.innerHTML = ""
     modalContainer.innerHTML = `<p class="modal-header">
@@ -88,18 +88,18 @@ function modalForm(data){
                                     </form>
                                 </div>`
 
-    //Ajout des differentes categories dans les options       
+    //Add options categories       
     for(let category of listCategories){
         document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
     }
 
-    //Event Listener sur les input des formulaires
+    //Event Listener for inputs
     //Input File
     document.getElementById("modal-form-image").addEventListener("change", function(){
         image = this.files[0]
         let imageAlt = image.name.split(".")[0]
 
-        //Afficher l'image choisie dans le formulaire
+        //Display the image
         document.querySelector(".modal-form-1").innerHTML = ""
         document.querySelector(".modal-form-1").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
         
@@ -109,7 +109,7 @@ function modalForm(data){
             changeButtonColor(formFilled)
         }
     })
-    //Input Titre
+    //Input Title
     document.getElementById("modal-form-title").addEventListener("input",function(){
         if(this.value.length > 2){
             titleFilled = true
@@ -121,7 +121,7 @@ function modalForm(data){
             changeButtonColor(formFilled)
           }
     })
-    //Input Categorie
+    //Input Category
     document.getElementById("modal-form-categories").addEventListener("change",function(){
         if(this.value !== ""){
             categoryFilled = true
@@ -134,13 +134,13 @@ function modalForm(data){
           }
     })
 
-    //Validation du formulaire
+    //Form validation
     document.querySelector(".modal-form").addEventListener("submit",async function(event){
         event.preventDefault()
 
         if(formFilled){
-            //Recuperation des donnees du formulaire
-            const formData = new FormData()
+            //Collect form responses
+            let formData = new FormData()
             
             formData.append("image",image)
             formData.append("title",event.target.title.value.trim())
@@ -163,11 +163,11 @@ function modalForm(data){
         }
     })
 
-    //Retour au Modal home
+    //To go back to the modal
     document.querySelector(".fa-arrow-left").addEventListener("click",function(){
         newData === null ? modalHome(data) : modalHome(newData)
     })
 
-    //Fermeture du Modal avec la croix
+    //Close modal with the cross
     document.querySelector(".close-icon").addEventListener("click",close)
 }

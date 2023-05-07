@@ -1,7 +1,7 @@
 const load = await fetch("../../config.json")
 const loadJson = await load.json()
 
-let token = window.localStorage.getItem("token")
+const token = window.localStorage.getItem("token")
 
 export class FetchRequest {
 
@@ -9,9 +9,10 @@ export class FetchRequest {
         return loadJson
     }
 
+    //Post email and password
     static async login(user) {
         try {
-            const data = await fetch(`${this.param.host}api/users/login`,
+            let data = await fetch(`${this.param.host}api/users/login`,
                 {
                     method:"POST",
                     headers:{"Content-Type":"application/json"},
@@ -20,7 +21,7 @@ export class FetchRequest {
 
             if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
             
-            const result = await data.json()
+            let result = await data.json()
 
             return result
         } catch (err) {
@@ -28,13 +29,14 @@ export class FetchRequest {
         }
     }
 
+    //Get api/works or api/categories depending on request parameter
     static async get(request) {
         try{
-            const data = await fetch(`${this.param.host}api/${request}`)
+            let data = await fetch(`${this.param.host}api/${request}`)
 
             if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
             
-            const result = await data.json()
+            let result = await data.json()
             
             return result
         } catch(err){
@@ -42,9 +44,10 @@ export class FetchRequest {
         }
     }
 
+    //Post new project
     static async post(formData) {
         try{
-            const data = await fetch(`${this.param.host}api/works`,
+            let data = await fetch(`${this.param.host}api/works`,
                 {
                     method: "POST",
                     headers: {"Authorization": `Bearer ${token}`},
@@ -60,9 +63,10 @@ export class FetchRequest {
         }
     }
 
+    //Delete api/works/{id}
     static async delete(id) {
         try{
-            const data = await fetch(`${this.param.host}api/works/${id}`,
+            let data = await fetch(`${this.param.host}api/works/${id}`,
                 {
                     method: "DELETE",
                     headers: {"Authorization": `Bearer ${token}`}
@@ -79,9 +83,10 @@ export class FetchRequest {
         }
     }
 
+    //Delete all projects of the gallery
     static async deleteAll() {
         try{
-            const request = await this.get("works")
+            let request = await this.get("works")
             for (let i=0; i<request.length; i++){
                  await fetch(`http://localhost:5678/api/works/${request[i].id}`,
                     {
