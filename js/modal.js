@@ -147,9 +147,15 @@ function modalForm(data){
             formData.append("category",parseInt(event.target.categories.value))
             
             await FetchRequest.post(formData)
-
+            
+            //Restore the fields
+            document.getElementById("modal-form-title").innerHTML = ""
+            document.getElementById("modal-form-categories").value = ""
+            
             close()
             msgValidation("add")
+
+            //Load the new database
             newData = await FetchRequest.get("works")
             addElements(newData)
         } else{

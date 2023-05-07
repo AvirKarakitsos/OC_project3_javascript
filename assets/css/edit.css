@@ -232,6 +232,8 @@ nav li {
 	padding: 15px;
 	display: none;
 	position: fixed;
+	top: 90%;
+	left: 10%;
 	text-align: center;
 	border-radius: 10px;
 	color: #FFFFFF;
