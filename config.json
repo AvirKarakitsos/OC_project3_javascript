@@ -1,8 +1,0 @@
-{
-    "host": "http://localhost:5678/",
-    "liveserver": "http://127.0.0.1:5500/",
-    "user":{
-        "email": "sophie.bluel@test.tld",
-        "password": "S0phie"
-    }
-}
