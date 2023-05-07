@@ -1,6 +1,6 @@
-//Ajoute des elements dans le DOM
+//Add elementsto the DOM
 export function addElements(table){
-    const gallery = document.getElementById("gallery")
+    let gallery = document.getElementById("gallery")
 
     gallery.innerHTML = ""
 
@@ -18,7 +18,7 @@ export function addElements(table){
     }
 }
 
-//Ajoute addEventListener sur les filtres categories
+//AddEventListener for categories
 export function addClickEvent(element,data){
     if(parseInt(element.dataset.id) === 0){
         element.addEventListener("click",function(){
@@ -28,7 +28,7 @@ export function addClickEvent(element,data){
         })
     } else{
         element.addEventListener("click",function(){
-            const tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
+            let tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
 
             addElements(tableFilter)
             document.querySelector(".selected").classList.remove("selected")
@@ -37,14 +37,14 @@ export function addClickEvent(element,data){
     }
 }
 
-//Fermeture du Modal
+//Close the modal
 export function close(){
     document.getElementById("modal").style.display = "none"
 }
 
-//Ajoute la galerie dans le Modal
+//Add the gallery inside the modal
 export function addElementsModal(table){
-    const galleryModal = document.querySelector(".modal-articles")
+    let galleryModal = document.querySelector(".modal-articles")
     
     galleryModal.innerHTML = ""
 
@@ -64,9 +64,9 @@ export function addElementsModal(table){
     }
 }
 
-//Message d'erreur ou de validation
+//Message for uncompleted form
 export function formCompleted(value){
-    const msg = document.querySelector(".msg")
+    let msg = document.querySelector(".msg")
 
     switch(value){
         case "empty": 
@@ -102,9 +102,9 @@ export function msgValidation(value){
     },3000)
 }
 
-//Change la couleur du bouton de validation
+//Change color validation button
 export function changeButtonColor(input){
-    const changeColor = document.getElementById("btn-form")
+    let changeColor = document.getElementById("btn-form")
 
     if(input){
         changeColor.classList.remove("bg-grey")
