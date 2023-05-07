@@ -81,6 +81,10 @@ i{
 	color: #FFFFFF;
 	background-color: #A7A7A7;
 }
+.bg-red {
+	color: #FFFFFF;
+	background-color: red;
+}
 button {
 	border: none;
 }
@@ -203,6 +207,9 @@ nav li {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+#portfolio {
+	position: relative;
+}
 #portfolio h2 {
 	text-align: center;
 	
@@ -221,6 +228,15 @@ nav li {
 }
 
 /*Build Modal-1*/
+.msg-success {
+	padding: 15px;
+	display: none;
+	position: fixed;
+	text-align: center;
+	border-radius: 10px;
+	color: #FFFFFF;
+	z-index: 10;
+}
 .modal {
 	position: fixed;
 	display: none;

@@ -1,5 +1,5 @@
 import { FetchRequest } from "./FetchRequest.js"
-import { addElements, addElementsModal, close, msgColor, changeButtonColor } from "./utilities.js"
+import { addElements, addElementsModal, close, msgColor, changeButtonColor, msgValidation } from "./utilities.js"
 
 const listCategories = await FetchRequest.get("categories") //Recuperation des donnees
 const modalContainer = document.querySelector(".modal-container")
@@ -25,6 +25,7 @@ export function modalHome(data){
                 let newData = await FetchRequest.get("works")
                 addElements(newData)
                 addElementsModal(newData)
+                msgValidation("remove")
             }
         })
     })
@@ -142,11 +143,13 @@ function modalForm(data){
             const formData = new FormData()
             
             formData.append("image",image)
-            formData.append("title",event.target.title.value)
+            formData.append("title",event.target.title.value.trim())
             formData.append("category",parseInt(event.target.categories.value))
             
             await FetchRequest.post(formData)
-            msgColor("green")
+
+            close()
+            msgValidation("add")
             newData = await FetchRequest.get("works")
             addElements(newData)
         } else{

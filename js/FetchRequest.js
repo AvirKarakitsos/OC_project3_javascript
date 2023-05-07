@@ -69,8 +69,10 @@ export class FetchRequest {
                 })
             
             if(!data.ok) throw new Error(`Error ${data.status} : ${data.statusText}`)
+            //let msg = JSON.parse(data.body)
 
             console.log(`Success ${data.status} : ${data.statusText}`)
+            //console.log(msg.message)
 
         } catch(err){
             console.log(err.message)
