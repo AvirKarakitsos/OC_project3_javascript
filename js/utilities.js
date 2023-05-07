@@ -83,7 +83,7 @@ export function addElementsModal(table){
 
 //Message for uncompleted form
 export function formCompleted(value){
-    let msg = document.querySelector(".msg")
+    let msg = document.querySelector(".modal-form-2 .msg")
 
     switch(value){
         case "empty": 
@@ -130,5 +130,22 @@ export function changeButtonColor(input){
     } else {
         changeColor.classList.remove("bg-green")
         changeColor.classList.add("bg-grey")
+    }
+}
+
+//Check validity of an image
+export function imageValidity(file){
+    let msg = document.querySelector(".msg-image")
+    let formats = ["image/jpeg", "image/png"];
+
+    if (!formats.includes(file["type"])) {
+        msg.innerHTML ="type de format incorrect"
+        return false
+    } else if(file["size"] >= 4096000) {
+        msg.innerHTML ="la taille de l'image est supérieure à 4mo"
+        return false
+    } else{
+        msg.innerHTML = ""
+        return true
     }
 }

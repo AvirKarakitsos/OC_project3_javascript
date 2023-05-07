@@ -1,5 +1,5 @@
 import { FetchRequest } from "./FetchRequest.js"
-import { addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation } from "./utilities.js"
+import { addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation, imageValidity } from "./utilities.js"
 
 const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
@@ -58,12 +58,13 @@ function modalForm(data){
                                         <div class="modal-form-1">
                                             <i class="fa-sharp fa-solid fa-image"></i>
                                             <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                            <input type="file" accept="image/png, image/jpeg" id="modal-form-image" name="image">
+                                            <input type="file" id="modal-form-image" name="image" required>
                                             <p>jpg, png : 4mo max</p>
                                         </div>
+                                        <p class="msg msg-image"></p>
                                         <div class="modal-form-2 border-grey">
                                             <label for="modal-form-title" class="label-style label-title">Titre</label>
-                                            <input type="text" name="title" id="modal-form-title" class="input-style">
+                                            <input type="text" name="title" id="modal-form-title" class="input-style" required>
                                             <label for="modal-form-categories" class="label-style">Catégorie</label>
                                             <select name="categories" id="modal-form-categories" class="input-style">
                                                 <option value=""></option>
@@ -91,7 +92,8 @@ function modalForm(data){
             image = this.files[0]
             arrImages[0] = this.files[0]
         }
-
+        console.log(image)
+        fileFilled = imageValidity(image)
         imageAlt = image.name.split(".")[0]
 
         //Display the image
@@ -102,12 +104,10 @@ function modalForm(data){
         //document.querySelector(".modal-form-1 label").style.display = "block"
         document.querySelector(".modal-form-1 label").innerHTML = ""
         document.querySelector(".modal-form-1 label").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
+         
+        titleFilled && categoryFilled ? formFilled = true : formFilled = false
+        changeButtonColor(formFilled)
         
-        if(image !== null){
-            fileFilled = true
-            titleFilled && categoryFilled ? formFilled = true : formFilled = false
-            changeButtonColor(formFilled)
-        }
     })
     //Input Title
     document.getElementById("modal-form-title").addEventListener("input",function(){
