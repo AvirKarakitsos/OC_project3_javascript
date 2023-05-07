@@ -58,7 +58,7 @@ function modalForm(data){
                                         <div class="modal-form-1">
                                             <i class="fa-sharp fa-solid fa-image"></i>
                                             <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                            <input type="file" id="modal-form-image" name="image" required>
+                                            <input type="file" id="modal-form-image" name="image" accept="image/*" required>
                                             <p>jpg, png : 4mo max</p>
                                         </div>
                                         <p class="msg msg-image"></p>
