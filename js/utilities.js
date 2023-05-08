@@ -1,6 +1,6 @@
 import { FetchRequest } from "./FetchRequest.js"
 
-//Add elementsto the DOM
+//Add elements to the DOM
 export function addElements(table){
     let gallery = document.getElementById("gallery")
 
@@ -22,21 +22,18 @@ export function addElements(table){
 
 //AddEventListener for categories
 export function addClickEvent(element,data){
-    if(parseInt(element.dataset.id) === 0){
-        element.addEventListener("click",function(){
+    element.addEventListener("click", function(){
+        
+        if(parseInt(element.dataset.id) === 0){
             addElements(data)
-            document.querySelector(".selected").classList.remove("selected")
-            this.classList.add("selected")
-        })
-    } else{
-        element.addEventListener("click",function(){
+        } else{
             let tableFilter = data.filter(res => res.categoryId === parseInt(this.dataset.id))
-
             addElements(tableFilter)
-            document.querySelector(".selected").classList.remove("selected")
-            this.classList.add("selected")
-        })
-    }
+        }
+
+        document.querySelector(".selected").classList.remove("selected")
+        this.classList.add("selected")
+    })
 }
 
 //Close the modal
