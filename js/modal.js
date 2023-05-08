@@ -58,7 +58,7 @@ function modalForm(data){
                                         <div class="modal-form-1">
                                             <i class="fa-sharp fa-solid fa-image"></i>
                                             <label for="modal-form-image" class="btn-submit label-image bg-blue">+ Ajouter photo</label>
-                                            <input type="file" id="modal-form-image" name="image" accept="image/*" required>
+                                            <input type="file" id="modal-form-image" name="image" accept="image/*">
                                             <p>jpg, png : 4mo max</p>
                                         </div>
                                         <p class="msg msg-image"></p>
@@ -66,7 +66,7 @@ function modalForm(data){
                                             <label for="modal-form-title" class="label-style label-title">Titre</label>
                                             <input type="text" name="title" id="modal-form-title" class="input-style" required>
                                             <label for="modal-form-categories" class="label-style">Catégorie</label>
-                                            <select name="categories" id="modal-form-categories" class="input-style">
+                                            <select name="categories" id="modal-form-categories" class="input-style" required>
                                                 <option value=""></option>
                                             </select>
                                             <p class="msg"></p>
@@ -83,7 +83,7 @@ function modalForm(data){
     //Event Listener for inputs
     //Input File
     document.getElementById("modal-form-image").addEventListener("change", function(){
-        let imageAlt
+        let imageAlt = null
 
         image = this.files[0]
         if(image === undefined){ //case when you click cancel button
@@ -92,7 +92,7 @@ function modalForm(data){
             image = this.files[0]
             arrImages[0] = this.files[0]
         }
-        console.log(image)
+        
         fileFilled = imageValidity(image)
         imageAlt = image.name.split(".")[0]
 
@@ -101,7 +101,6 @@ function modalForm(data){
         document.querySelector(".modal-form-1 p").innerHTML = ""
 
         document.querySelector(".modal-form-1 label").classList.remove("btn-submit", "label-image", "bg-blue")
-        //document.querySelector(".modal-form-1 label").style.display = "block"
         document.querySelector(".modal-form-1 label").innerHTML = ""
         document.querySelector(".modal-form-1 label").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
          
