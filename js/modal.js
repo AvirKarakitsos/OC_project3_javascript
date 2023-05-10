@@ -103,10 +103,14 @@ function modalForm(data){
         document.querySelector(".modal-form-1 label").classList.remove("btn-submit", "label-image", "bg-blue")
         document.querySelector(".modal-form-1 label").innerHTML = ""
         document.querySelector(".modal-form-1 label").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
-         
-        titleFilled && categoryFilled ? formFilled = true : formFilled = false
-        changeButtonColor(formFilled)
         
+        if(fileFilled){
+            titleFilled && categoryFilled ? formFilled = true : formFilled = false
+            changeButtonColor(formFilled)
+        } else{
+            formFilled = false
+            changeButtonColor(formFilled)
+        }
     })
     //Input Title
     document.getElementById("modal-form-title").addEventListener("input",function(){
