@@ -14,7 +14,11 @@ addElements(result)
 
 //Add categories
 for(let category of listCategories){
-    list.innerHTML += `<li data-id="${category.id}">${category.name}</li>`
+    let li = document.createElement("li")
+    
+    li.dataset.id = category.id
+    li.textContent = category.name
+    list.appendChild(li)
 }
 
 //Add a click event to the categories

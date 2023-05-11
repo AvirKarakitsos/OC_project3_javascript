@@ -77,7 +77,10 @@ function modalForm(data){
 
     //Add options categories       
     for(let category of listCategories){
-        document.getElementById("modal-form-categories").innerHTML += `<option value="${category.id}">${category.name}</option>`
+        let option = document.createElement("option")
+        option.value = category.id
+        option.textContent = category.name
+        document.getElementById("modal-form-categories").appendChild(option)
     }
 
     //Event Listener for inputs
