@@ -1,5 +1,23 @@
 import { FetchRequest } from "./FetchRequest.js"
 
+//Add one element to the DOM
+export function addOneElement(element){
+    let gallery = document.getElementById("gallery")
+
+    let figure = document.createElement("figure")
+    let img = document.createElement("img")
+    let figcaption = document.createElement("figcaption")
+    
+    img.src = element.imageUrl
+    img.alt = element.title
+    figcaption.textContent = element.title
+    figcaption.dataset.id = element.id
+    
+    figure.appendChild(img)
+    figure.appendChild(figcaption)
+    gallery.appendChild(figure)
+}
+
 //Add elements to the DOM
 export function addElements(table){
     let gallery = document.getElementById("gallery")
@@ -10,12 +28,9 @@ export function addElements(table){
         gallery.style.display = "block"
         gallery.innerHTML = `<p class="empty-gallery font-20-text-center">La galerie est vide</p>`
     } else{
+        gallery.style.display = "grid"
         for(let element of table){
-            gallery.style.display = "grid"
-            gallery.innerHTML += `<figure>
-                                    <img src="${element.imageUrl}" alt="${element.title}">
-                                    <figcaption>${element.title}</figcaption>
-                                </figure>`
+            addOneElement(element)
         }
     }
 }
@@ -52,13 +67,24 @@ export function addElementsModal(table){
         galleryModal.innerHTML = `<p class="empty-gallery">La galerie est vide</p>`
     } else {
         for(let element of table){
-            galleryModal.innerHTML += `<article>
-                                        <div class="trash-icon" data-id="${element.id}">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </div>
-                                        <img src="${element.imageUrl}" alt="${element.title}">
-                                        <p class="modal-edit">éditer</p>
-                                    </article>`
+            let article = document.createElement("article")
+            let div = document.createElement("div")
+            let icone = document.createElement("i")
+            let img = document.createElement("img")
+            let para = document.createElement("p")
+
+            div.classList.add("trash-icon")
+            div.dataset.id = element.id
+            icone.classList.add("fa-solid","fa-trash-can")
+            img.src = element.imageUrl
+            img.alt = element.title
+            para.classList.add("modal-edit")
+
+            div.appendChild(icone)
+            article.appendChild(div)
+            article.appendChild(img)
+            article.appendChild(para)
+            galleryModal.appendChild(article)
         }
 
         //Event deleting one project
@@ -68,10 +94,9 @@ export function addElementsModal(table){
 
                 if(confirm("Voulez-vous supprimer ce projet ?")){
                     await FetchRequest.delete(id)
-                    let newData = await FetchRequest.get("works")
-                    addElements(newData)
-                    addElementsModal(newData)
-                    msgValidation("remove")
+                    document.querySelectorAll(`[data-id="${id}"]`).forEach((child)=>{
+                        child.parentElement.remove()
+                    })
                 }
             })
         })
@@ -138,7 +163,7 @@ export function imageValidity(file){
     if (!formats.includes(file["type"])) {
         msg.innerHTML ="type de format incorrect"
         return false
-    } else if(file["size"] >= 4096000) {
+    } else if(file["size"] >= 4194304) {
         msg.innerHTML ="la taille de l'image est supérieure à 4mo"
         return false
     } else{

@@ -85,7 +85,9 @@ export class FetchRequest {
     static async deleteAll() {
         try{
             let request = await this.get("works")
-            for (let i=0; i<request.length; i++){
+            let requestLength = request.length
+
+            for (let i=0; i<requestLength; i++){
                  await fetch(`http://localhost:5678/api/works/${request[i].id}`,
                     {
                         method : "DELETE",

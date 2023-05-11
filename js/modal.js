@@ -1,5 +1,5 @@
 import { FetchRequest } from "./FetchRequest.js"
-import { addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation, imageValidity } from "./utilities.js"
+import { addOneElement, addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation, imageValidity } from "./utilities.js"
 
 const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
@@ -148,7 +148,7 @@ function modalForm(data){
             formData.append("image",image)
             formData.append("title",event.target.title.value.trim())
             formData.append("category",parseInt(event.target.categories.value))
-            
+
             await FetchRequest.post(formData)
             
             //Restore the fields
@@ -157,10 +157,10 @@ function modalForm(data){
             
             close()
             msgValidation("add")
-
+            
             //Load the new database
             newData = await FetchRequest.get("works")
-            addElements(newData)
+            addOneElement(newData.slice(-1)[0])
         } else{
             formCompleted("red")
         }
