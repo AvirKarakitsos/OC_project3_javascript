@@ -97,6 +97,7 @@ export function addElementsModal(table){
                     document.querySelectorAll(`[data-id="${id}"]`).forEach((child)=>{
                         child.parentElement.remove()
                     })
+                    msgValidation("remove")
                 }
             })
         })

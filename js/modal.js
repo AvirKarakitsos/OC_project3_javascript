@@ -3,6 +3,8 @@ import { addOneElement, addElements, addElementsModal, close, formCompleted, cha
 
 const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
+const gallery = document.getElementById("gallery")
+
 
 //Fonction modal
 export function modalHome(data){
@@ -154,15 +156,17 @@ function modalForm(data){
 
             await FetchRequest.post(formData)
             
-            //Restore the fields
+            //Restore the fields, load the new database
             document.getElementById("modal-form-title").innerHTML = ""
             document.getElementById("modal-form-categories").value = ""
-            
             close()
             msgValidation("add")
-            
-            //Load the new database
-            newData = await FetchRequest.get("works")
+            newData = await FetchRequest.get("works") 
+
+            //Case where the database has one element
+            if(gallery.style.display === "none"){
+                gallery.style.display = "grid"
+            }
             addOneElement(newData.slice(-1)[0])
         } else{
             formCompleted("red")
