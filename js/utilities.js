@@ -97,7 +97,7 @@ export function addElementsModal(table){
                     document.querySelectorAll(`[data-id="${id}"]`).forEach((child)=>{
                         child.parentElement.remove()
                     })
-                    msgValidation("remove")
+                    notification("remove")
                 }
             })
         })
@@ -119,18 +119,16 @@ export function formCompleted(value){
 }
 
 //Message for adding or removing project
-export function msgValidation(value){
+export function notification(value){
     let msg = document.querySelector(".msg-success")
   
     switch(value){
         case "add":
-            msg.style.width = "100px"
             msg.classList.add("bg-green")
             msg.classList.remove("bg-red")
             msg.innerHTML = "Projet ajouté"
             break
         case "remove":
-            msg.style.width = "125px"
             msg.classList.add("bg-red")
             msg.classList.remove("bg-green")
             msg.innerHTML = "Projet supprimé"

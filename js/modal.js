@@ -1,6 +1,6 @@
 import { FetchRequest } from "./FetchRequest.js"
-import { addOneElement, addElements, addElementsModal, close, formCompleted, changeButtonColor, msgValidation, imageValidity } from "./utilities.js"
-
+import { addOneElement, addElements, addElementsModal, formCompleted, changeButtonColor, notification, imageValidity } from "./utilities.js"
+//close
 const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
 const gallery = document.getElementById("gallery")
@@ -9,11 +9,12 @@ const gallery = document.getElementById("gallery")
 //Fonction modal
 export function modalHome(data){
     modalContainer.innerHTML = ""
-    modalContainer.innerHTML = `<p class="modal-close"><span class="close-icon">&times;</span></p>
+    modalContainer.innerHTML = `<div class="modal-close"><span class="close-icon">&times;</span></div>
                                 <h3 class="modal-title">Galerie photo</h3>
                                 <div class="modal-section modal-articles border-grey"></div>
                                 <button id="btn-home" class="btn-submit modal-add bg-green">Ajouter une photo</button>
-                                <p class="modal-delete">supprimer la galerie</p>`
+                                <p class="modal-delete">supprimer la galerie</p>
+                                <p class="msg-success"></p>`
 
     addElementsModal(data) //Add projects to the modal
 
@@ -28,12 +29,14 @@ export function modalHome(data){
     })
 
     //Add modal form
-    document.getElementById("btn-home").addEventListener("click",function(){
+    document.getElementById("btn-home").addEventListener("click", function(){
         modalForm(data)
     })
 
     //Close the modal with the cross
-    document.querySelector(".close-icon").addEventListener("click",close)
+    document.querySelector(".close-icon").addEventListener("click",function(){
+        document.getElementById("modal").close()
+    })
 }
 
 //Fonction modal form
@@ -50,10 +53,10 @@ function modalForm(data){
     let arrImages = []
 
     modalContainer.innerHTML = ""
-    modalContainer.innerHTML = `<p class="modal-header">
+    modalContainer.innerHTML = `<div class="modal-header">
                                     <i class="fa-solid fa-arrow-left"></i>
                                     <span class="close-icon">&times;</span>
-                                </p>
+                                </div>
                                 <h3 class="modal-title">Ajout photo</h3>
                                 <div class="modal-section modal-project">
                                     <form class="modal-form">
@@ -159,13 +162,15 @@ function modalForm(data){
             //Restore the fields, load the new database
             document.getElementById("modal-form-title").innerHTML = ""
             document.getElementById("modal-form-categories").value = ""
-            close()
-            msgValidation("add")
+            modalContainer.close()
+            //close()
+            notification("add")
             newData = await FetchRequest.get("works") 
 
             //Case where the database has one element
-            if(gallery.style.display === "none"){
+            if(gallery.style.display === "block"){
                 gallery.style.display = "grid"
+                document.querySelector(".empty-gallery").remove()
             }
             addOneElement(newData.slice(-1)[0])
         } else{
@@ -175,9 +180,11 @@ function modalForm(data){
 
     //To go back to the modal
     document.querySelector(".fa-arrow-left").addEventListener("click",function(){
-        newData === null ? modalHome(data) : modalHome(newData)
+        modalHome(data)
     })
 
     //Close modal with the cross
-    document.querySelector(".close-icon").addEventListener("click",close)
+    document.querySelector(".close-icon").addEventListener("click",function(){
+        document.getElementById("modal").close()
+    })
 }

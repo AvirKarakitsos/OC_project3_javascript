@@ -17,13 +17,16 @@ if(isActive()){
     //Open the modal
     document.querySelector(".link-modal").addEventListener("click",async function(){
         let newData = await FetchRequest.get("works")
-        modal.style.display = "flex"
+        //modal.style.display = "flex"
+        modal.showModal()
         modalHome(newData)
 
         //Close the modal using the container
-        modal.addEventListener("click",close)
-        modal.children[0].addEventListener("click",function(e){
-            e.stopPropagation()
+        modal.addEventListener("mousedown", e => {
+            let dialogDimensions = modal.getBoundingClientRect()
+            if ((e.clientX < dialogDimensions.left) || (e.clientX > dialogDimensions.right) || (e.clientY < dialogDimensions.top) || (e.clientY > dialogDimensions.bottom)){
+                modal.close()
+            }
         })
     })
 } else{
