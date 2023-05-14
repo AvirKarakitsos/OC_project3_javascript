@@ -19,6 +19,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
+	box-sizing: border-box;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
@@ -59,11 +60,9 @@ html{
 	align-items: center;
 	cursor: pointer;
 }
-
 i{
 	font-size: 15px;
 }
-
 .btn-submit {
 	font-family: 'Syne';
 	font-weight: 700;
@@ -128,11 +127,9 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
-
 section {
 	margin: 50px 0
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -142,13 +139,11 @@ h1{
 	cursor: default;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -159,7 +154,6 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
@@ -177,7 +171,6 @@ nav li {
 #introduction figure {
 	flex: 1
 }
-
 #introduction .edit {
 	position: relative;
 	top: 15px;
@@ -188,7 +181,6 @@ nav li {
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
 	flex: 1
 }
@@ -203,7 +195,6 @@ nav li {
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
@@ -212,7 +203,6 @@ nav li {
 }
 #portfolio h2 {
 	text-align: center;
-	
 }
 #portfolio .title {
 	margin-bottom: 1em;
@@ -229,6 +219,7 @@ nav li {
 
 /*Build Modal-1*/
 .msg-success {
+	width: 150px;
 	padding: 15px;
 	display: none;
 	position: fixed;
@@ -239,35 +230,25 @@ nav li {
 	color: #FFFFFF;
 	z-index: 10;
 }
-.modal {
-	position: fixed;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.8);
-}
 .modal-container {
 	width: 630px;
 	padding: 26px 20px 48px 20px;
 	text-align: center;
+	border: none;
+	outline: 0;
 	border-radius: 10px;
-	background-color: white;
 }
-
+.modal-container::backdrop {
+	background-color: rgba(0, 0, 0, 0.8);
+}
 .modal-close {
 	display: flex;
 	justify-content: end;
 }
-
 .close-icon {
 	font-size: 24px;
 	cursor: default;
 }
-
 .modal-title {
 	font-size: 26px;
 	font-weight: 400;
@@ -287,11 +268,9 @@ nav li {
 	grid-auto-rows: 1fr;
 	gap: 10px 6px;
 }
-
 .modal-articles article {
 	position: relative;
 }
-
 .trash-icon {
 	padding: 4px;
 	position: absolute;
@@ -303,11 +282,9 @@ nav li {
 	border-radius: 2px;
 	background-color: black;
 }
-
 .trash-icon:hover {
 	animation: trash-shaking .25s linear forwards infinite;
 }
-
 @keyframes trash-shaking {
 	0% { transform: rotate(0deg); }
 	25% { transform: rotate(25deg); }
@@ -315,29 +292,24 @@ nav li {
 	75% { transform: rotate(-25deg); }
 	100% { transform: rotate(0deg); }
 }
-
 .fa-trash-can {
 	font-size: 9px;
 	color: white;
 }
-
 .modal-container  article img {
 	height: 102px;
 	width: 100%;
 	display: block;
 	object-fit: cover;
 }
-
 .modal-edit {
 	text-align: left;
 	cursor: default;
 }
-
 .modal-add {
 	margin: 38px 0 23px 0;
 	padding: 9px 48px;
 }
-
 .modal-delete {
 	color: red;
 	cursor: default;
@@ -350,7 +322,8 @@ nav li {
 	font-size: 20px;
 	text-align: center;
 }
-/*Modal Project*/
+
+/*Modal Form*/
 .modal-header {
 	display: flex;
 	justify-content: space-between;
@@ -358,7 +331,6 @@ nav li {
 .modal-project {
 	padding-top: 36px;
 }
-
 .modal-form-1 {
 	height: 169px;
 	display: flex;
@@ -381,7 +353,6 @@ nav li {
 	height: 169px;
 	object-fit: cover;
 }
-
 .modal-form-2 {
 	padding-bottom: 47px;
 	text-align: left;
@@ -415,6 +386,7 @@ nav li {
 	color: red;
 }
 
+/* Gallery */
 #gallery {
 	width: 100%;
 	display: grid;
@@ -422,11 +394,9 @@ nav li {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 #gallery img {
 	width: 100%;
 }
-
 #contact {
 	width: 50%;
 	margin: auto;
@@ -443,7 +413,6 @@ nav li {
 #contact h2{
 	margin-bottom: 20px;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
@@ -457,16 +426,13 @@ nav li {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
 input[type="submit"]{
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
 }
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
-
