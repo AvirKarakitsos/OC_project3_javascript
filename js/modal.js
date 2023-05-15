@@ -2,6 +2,7 @@ import { FetchRequest } from "./FetchRequest.js"
 import { addOneElement, addElements, addElementsModal, formCompleted, changeButtonColor, notification, imageValidity } from "./utilities.js"
 
 const listCategories = await FetchRequest.get("categories") //Collect categories database
+const modal = document.getElementById("modal")
 const modalContainer = document.querySelector(".modal-container")
 const gallery = document.getElementById("gallery")
 
@@ -35,7 +36,7 @@ export function modalHome(data){
 
     //Close the modal with the cross
     document.querySelector(".close-icon").addEventListener("click",function(){
-        document.getElementById("modal").close()
+        modal.close()
     })
 }
 
@@ -161,8 +162,8 @@ function modalForm(data){
             //Restore the fields, load the new database
             document.getElementById("modal-form-title").innerHTML = ""
             document.getElementById("modal-form-categories").value = ""
-            modalContainer.close()
-            //close()
+            modal.close()
+
             notification("add")
             newData = await FetchRequest.get("works") 
 
@@ -184,6 +185,6 @@ function modalForm(data){
 
     //Close modal with the cross
     document.querySelector(".close-icon").addEventListener("click",function(){
-        document.getElementById("modal").close()
+        modal.close()
     })
 }

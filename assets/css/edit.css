@@ -230,15 +230,18 @@ nav li {
 	color: #FFFFFF;
 	z-index: 10;
 }
-.modal-container {
+#modal {
 	width: 630px;
-	padding: 26px 20px 48px 20px;
-	text-align: center;
 	border: none;
 	outline: 0;
 	border-radius: 10px;
+	padding: 0;
 }
-.modal-container::backdrop {
+.modal-container {
+	padding: 26px 20px 48px 20px;
+	text-align: center;
+}
+#modal::backdrop {
 	background-color: rgba(0, 0, 0, 0.8);
 }
 .modal-close {
@@ -311,6 +314,8 @@ nav li {
 	padding: 9px 48px;
 }
 .modal-delete {
+	width: 150px;
+	margin: 0 auto;
 	color: red;
 	cursor: default;
 }

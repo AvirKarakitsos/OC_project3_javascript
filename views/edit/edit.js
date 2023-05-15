@@ -6,6 +6,7 @@ import {addElements, close} from "../../js/utilities.js"
 //Collect the database
 const result = await FetchRequest.get("works")
 const modal = document.getElementById("modal")
+const myDiv = document.querySelector('.modal-container')
 
 if(isActive()){
     //Link for logout
@@ -17,17 +18,13 @@ if(isActive()){
     //Open the modal
     document.querySelector(".link-modal").addEventListener("click",async function(){
         let newData = await FetchRequest.get("works")
-        //modal.style.display = "flex"
+        
         modal.showModal()
         modalHome(newData)
 
         //Close the modal using the container
-        modal.addEventListener("mousedown", e => {
-            let dialogDimensions = modal.getBoundingClientRect()
-            if ((e.clientX < dialogDimensions.left) || (e.clientX > dialogDimensions.right) || (e.clientY < dialogDimensions.top) || (e.clientY > dialogDimensions.bottom)){
-                modal.close()
-            }
-        })
+        modal.addEventListener('mousedown', () => modal.close())    
+        myDiv.addEventListener('mousedown', (event) => event.stopPropagation())
     })
 } else{
     //Link to the connection page
