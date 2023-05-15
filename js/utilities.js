@@ -51,11 +51,6 @@ export function addClickEvent(element,data){
     })
 }
 
-//Close the modal
-export function close(){
-    document.getElementById("modal").style.display = "none"
-}
-
 //Add the gallery inside the modal
 export function addElementsModal(table){
     let galleryModal = document.querySelector(".modal-articles")
