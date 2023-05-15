@@ -1,6 +1,6 @@
 import { FetchRequest } from "./FetchRequest.js"
 import { addOneElement, addElements, addElementsModal, formCompleted, changeButtonColor, notification, imageValidity } from "./utilities.js"
-//close
+
 const listCategories = await FetchRequest.get("categories") //Collect categories database
 const modalContainer = document.querySelector(".modal-container")
 const gallery = document.getElementById("gallery")
@@ -105,9 +105,8 @@ function modalForm(data){
         imageAlt = image.name.split(".")[0]
 
         //Display the image
-        document.querySelector(".modal-form-1 .fa-image").style.display = "none"
-        document.querySelector(".modal-form-1 p").innerHTML = ""
-
+        document.querySelector(".modal-form-1 .fa-image")?.remove()
+        document.querySelector(".modal-form-1 p")?.remove()
         document.querySelector(".modal-form-1 label").classList.remove("btn-submit", "label-image", "bg-blue")
         document.querySelector(".modal-form-1 label").innerHTML = ""
         document.querySelector(".modal-form-1 label").innerHTML = `<img src="${FetchRequest.param.liveserver}assets/images/${image.name}" class="display-image" alt="${imageAlt}">` 
