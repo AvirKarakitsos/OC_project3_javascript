@@ -1,7 +1,7 @@
 import { isActive, login, logout } from "../../js/connectionTools.js"
 import { FetchRequest } from "../../js/FetchRequest.js"
 import { modalHome } from "../../js/modal.js"
-import {addElements, close} from "../../js/utilities.js"
+import {addElements} from "../../js/utilities.js"
 
 //Collect the database
 const result = await FetchRequest.get("works")
